@@ -89,7 +89,30 @@
     'mu.added': '「{name}」에 {n}곡을 담았습니다.', 'mu.removed': '「{name}」에서 뺐습니다.', 'mu.created': '「{name}」 플레이리스트를 만들었습니다.',
     'mu.rename': '이름 변경', 'mu.delete': '삭제', 'mu.renamePrompt': '플레이리스트의 새 이름', 'mu.delConfirm': '「{name}」 플레이리스트를 삭제할까요?',
     'mu.listEmpty': '아직 담긴 곡이 없습니다. 「전체」 탭에서 곡 옆의 ＋ 를 눌러 담아 보세요.', 'mu.removeFrom': '이 플레이리스트에서 빼기',
-    'mu.noLists': '아직 만든 플레이리스트가 없습니다. 아래에서 새로 만들어 보세요.', 'mu.defaultName': '내 플레이리스트 {n}'
+    'mu.noLists': '아직 만든 플레이리스트가 없습니다. 아래에서 새로 만들어 보세요.', 'mu.defaultName': '내 플레이리스트 {n}',
+    /* 마법 실습 */
+    'pr.spell.hint': '원 안에 룬을 그려 보세요',
+    'cast.elem': '비마의 속성', 'cast.fail': '…룬이 흐트러졌다. 다시 그려 보자.', 'cast.try': '시전',
+    'cast.forbid': '금지 주문은 시전할 수 없다.', 'cast.forbidSub': '마법 5계명 위반 — 폴 수감 대상',
+    'cast.line': '한 획 직선', 'cast.circle': '원', 'cast.zig': 'Z자', 'cast.toPractice': '룬을 그려 직접 시전하기',
+    'pt.mine': '내가 보탠 점수 {n}점', 'pt.how': '주문 시전 +2 · 기숙사 배정 +10 · 지팡이 +3 · 통지서 +5',
+    'pt.none': '아직 기숙사가 없다. 배정을 받으면 점수가 쌓이기 시작한다.', 'pt.toSort': '기숙사 배정 받기', 'pt.gain': '{house} +{n}점',
+    'pr.wand.pick': '상자를 하나 골라 열어 보세요', 'pr.wand.again': '다른 상자 열어 보기', 'pr.wand.yours': '당신의 지팡이', 'pr.wand.len': '길이',
+    'wand.woods': '흑단|물푸레나무|자작나무|주목|마가목|벚나무|호두나무|은백양',
+    'wand.cores': '까마귀 깃털|달빛 수정|천 년 고목의 심|별가루 결정|검은 강의 조약돌',
+    'wand.cdesc': '레이븐포드의 상징. 주인을 오래 기억한다.|방어 주문에 유난히 강하다.|느리지만 결코 흔들리지 않는다.|변덕스럽지만 번뜩인다.|장막의 숲, 검은 강에서 건진 돌. 다루기 까다롭다.',
+    'wand.fmt': '{wood} · {core} · {len}cm',
+    'lt.empty': '아직 통지서가 오지 않았다. 천리안 수정 앞에서 기숙사를 배정받으면 이곳으로 도착한다.',
+    'lt.tap': '봉인을 눌러 편지를 연다', 'lt.school': '레이븐포드 마법학교', 'lt.to': '{name} 귀하', 'lt.envSub': '{house} 기숙사 · 신입생',
+    'lt.p1': '귀하가 올해 레이븐포드 마법학교의 신입생으로 선발되었음을 알려 드립니다.',
+    'lt.p2': '천리안 수정은 귀하의 신념을 들여다본 끝에, 귀하를 {house} 기숙사에 배정하였습니다.',
+    'lt.p3': '입학식은 3월 3일, 창립자의 홀에서 열립니다. 학교는 현재 전시 체제이니 교칙과 밤 10시 통금을 반드시 지켜 주십시오.',
+    'lt.p4': '지팡이는 레이븐빌, 에이든 와일드의 지팡이 가게에서 맞출 수 있습니다.',
+    'lt.p4w': '귀하의 지팡이({wand})는 레이븐빌, 에이든 와일드의 지팡이 가게에 맡겨 두었습니다.',
+    'lt.sign1': '교장 카이든 볼트', 'lt.sign2': '교감 이사벨라 블랙우드', 'lt.save': '학생증 저장', 'lt.reseal': '다시 봉하기',
+    'id.no': '학번', 'id.year': '학년', 'id.year1': '1학년', 'id.house': '기숙사', 'id.wand': '지팡이', 'id.issued': '발급일', 'id.name': '이름',
+    'lm.hint': '지팡이 불빛을 비춰 보세요', 'lm.secret': '이 서고의 자리를 아는 자는, 이제 둘뿐이다.',
+    'so.letter': '입학 통지서 받으러 가기'
   };
   const UI = Object.assign({}, KO, (LX && LX.ui) || {});
   const T = (key, vars) => {
@@ -257,9 +280,9 @@
   }
 
   /* ════════════════════ 라우터 · 화면 전환 ════════════════════ */
-  const VIEWS = ['world', 'school', 'sorting', 'characters', 'relations'];
-  const LABEL = { world: 'nav.world', school: 'nav.school', sorting: 'nav.sorting', characters: 'nav.characters', relations: 'nav.relations' };
-  const NAV_KO = { 'nav.world': '세계관', 'nav.school': '레이븐포드', 'nav.sorting': '기숙사 배정', 'nav.characters': '인물', 'nav.relations': '관계도' };
+  const VIEWS = ['world', 'school', 'sorting', 'practice', 'characters', 'relations'];
+  const LABEL = { world: 'nav.world', school: 'nav.school', sorting: 'nav.sorting', practice: 'nav.practice', characters: 'nav.characters', relations: 'nav.relations' };
+  const NAV_KO = { 'nav.world': '세계관', 'nav.school': '레이븐포드', 'nav.sorting': '기숙사 배정', 'nav.practice': '마법 실습', 'nav.characters': '인물', 'nav.relations': '관계도' };
   let current = null, busy = false;
   const onEnter = {}, onLeave = {};
 
@@ -541,9 +564,15 @@
         ${s.opt ? `<div class="spell__opt"><small>${T('spell.opt')}</small>${s.opt.map(o => `<span>${esc(o)}</span>`).join('')}</div>` : ''}
         <p>${esc(s.d)}</p>
         ${kind === 'forbidden' ? '<svg class="spell__lock"><use href="#i-lock"/></svg>' : ''}
-        ${s.play ? playBtn(s.play, null, 'spell__play') : ''}
+        <div class="spell__foot">
+          ${kind === 'forbidden'
+            ? `<button class="spell__cast is-forbid" type="button" data-forbid><svg><use href="#i-wand"/></svg>${T('cast.try')}</button>`
+            : `<button class="spell__cast" type="button" data-cast="${SPELL_KEYS[kind][i]}"><svg><use href="#i-wand"/></svg>${T('cast.try')}</button>`}
+          ${s.play ? playBtn(s.play, null, 'spell__play') : ''}
+        </div>
       </article>`).join('');
   }
+  const SPELL_KEYS = { basic: ['vima', 'enprotecto', 'fogma'], war: ['machina', 'ligatus', 'revelo', 'murus'] };
   $('#spellTabs').addEventListener('click', e => { const b = e.target.closest('[data-sp]'); if (b) renderSpells(b.dataset.sp); });
 
   /* ════════════════════ 학교 페이지 ════════════════════ */
@@ -596,7 +625,7 @@
     /* 시설은 큰 사진과 설명이 번갈아 놓이는 줄, 지역은 세 칸 카드 (마크업은 같고 CSS 가 나눔) */
     const placeHTML = (p, i) => `
       <article class="place reveal${p.imgs ? ' place--commons' : ''}${p.danger ? ' is-danger' : ''}">
-        <div class="place__img">${p.imgs ? p.imgs.map((s, k) => `<span class="${k ? '' : 'is-on'}" style="background-image:url('assets/${s}.jpg')" data-h="${HOUSE_IDS[k]}"></span>`).join('') + `<b class="place__dots">${p.imgs.map((_, k) => `<i class="${k ? '' : 'is-on'}"></i>`).join('')}</b>` :`<span style="background-image:url('assets/${p.img}.jpg')"></span>`}${badge(p)}</div>
+        <div class="place__img">${p.imgs ? p.imgs.map((s, k) => `<span class="${k ? '' : 'is-on'}" style="background-image:url('assets/${s}.jpg')" data-h="${HOUSE_IDS[k]}"></span>`).join('') + `<b class="place__dots">${p.imgs.map((_, k) => `<i class="${k ? '' : 'is-on'}"></i>`).join('')}</b>` :`<span style="background-image:url('assets/${p.img}.jpg')"></span>`}${p.secret ? `<b class="lumos__txt" aria-hidden="true">${esc(T('lm.secret'))}</b><b class="lumos" aria-hidden="true"><em>${esc(T('lm.hint'))}</em></b>` : ''}${badge(p)}</div>
         <div class="place__body">
           <span class="place__no">${String(i + 1).padStart(2, '0')}</span>
           <span class="place__en">${esc(p.en)}</span>
@@ -681,6 +710,7 @@
       $('#sortForm').addEventListener('submit', e => {
         e.preventDefault();
         name = $('#sortName').value.trim().slice(0, 20);
+        store.set('name', name);
         orb.classList.add('is-awake');
         ask(0);
       });
@@ -749,12 +779,15 @@
         <div class="sp__mem"><small>${T('so.members')}</small><span class="avatars">${students.map(c => avatar(c.id)).join('')}</span>
           <small>${T('so.alumni')}</small><span class="avatars">${alumni.map(c => avatar(c.id)).join('')}</span></div>
         <div class="sp__btns">
+          <button class="btn-main" type="button" data-go="practice" data-anchor="p-letter"><svg><use href="#i-wand"/></svg><span>${T('so.letter')}</span></button>
           ${playBtn('h-' + id)}
           <button class="btn-ghost" type="button" data-cgroup="${id}">${T('so.toChars', { house: esc(h.name) })} ›</button>
           <button class="btn-ghost" type="button" id="sortAgain"><svg><use href="#i-replay"/></svg><span>${T('so.again')}</span></button>
         </div>
       </div>`;
       store.set('house', id);
+      store.set('sealed', true);   // 새 배정 → 통지서는 다시 봉인된 상태로 도착
+      Magic.points.add(10);
     }
 
     panel.addEventListener('click', e => {
@@ -981,6 +1014,18 @@
     });
     $('#cmPrev').addEventListener('click', () => step(-1));
     $('#cmNext').addEventListener('click', () => step(1));
+    /* 움직이는 초상화: 마우스를 따라 그림이 살짝 기울고 빛이 흐른다 */
+    if (!REDUCE && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      panel.addEventListener('pointermove', e => {
+        const pic = $('.cm__pic', panel); if (!pic) return;
+        if (!e.target.closest('.cm__portrait')) { pic.classList.remove('is-live'); return; }
+        const r = pic.getBoundingClientRect();
+        pic.style.setProperty('--px', clamp((e.clientX - r.left) / r.width - .5, -.6, .6).toFixed(3));
+        pic.style.setProperty('--py', clamp((e.clientY - r.top) / r.height - .5, -.6, .6).toFixed(3));
+        pic.classList.add('is-live');
+      });
+      panel.addEventListener('pointerleave', () => { const pic = $('.cm__pic', panel); if (pic) pic.classList.remove('is-live'); });
+    }
     /* 모바일 스와이프 */
     let sx = null, sy = null;
     panel.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
@@ -996,7 +1041,7 @@
   const Rel = (() => {
     const svg = $('#relSvg'), stage = $('#relStage'), panel = $('#relPanel');
     const NS = 'http://www.w3.org/2000/svg';
-    const ANCHOR = { leader: [.4, .2], prof: [.4, .47], brevalin: [.15, .76], clamis: [.42, .84], curringlindt: [.7, .76], hunter: [.82, .3], 'g:henry': [.64, .12], 'g:luna': [.14, .36] };
+    const ANCHOR = { leader: [.4, .2], prof: [.4, .47], brevalin: [.15, .76], clamis: [.42, .84], curringlindt: [.7, .76], hunter: [.82, .3], 'g:henry': [.64, .12] };
     let W = 800, H2 = 600, nodes = [], edges = [], raf = null, alpha = 1, sel = null, built = false;
     const hidden = new Set();
     const mk = (tag, attrs = {}) => { const el = document.createElementNS(NS, tag); for (const k in attrs) el.setAttribute(k, attrs[k]); return el; };
@@ -1786,6 +1831,629 @@
       get cur() { return cur; },
       titleOf: id => byTid[id] ? titleOf(byTid[id]) : ''
     };
+  })();
+
+  /* ════════════════════ 마법 ════════════════════
+     ① 효과 캔버스 (주문 · 마법 가루) — 효과가 있을 때만 그린다
+     ② 주문 시전 (룬 그리기 인식 · 카드 버튼)
+     ③ 기숙사 점수 모래시계 ④ 지팡이 가게 ⑤ 입학 통지서 · 학생증
+     ⑥ 장면 연출 (창립자의 서고 불빛 · 떠다니는 촛불) */
+  const Magic = (() => {
+    const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const cv = $('#spellfx'), cx = cv.getContext('2d');
+    let W = 0, H2 = 0, fx = [], raf = 0, last = 0;
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = innerWidth; H2 = innerHeight;
+      cv.width = W * dpr; cv.height = H2 * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize(); addEventListener('resize', resize);
+    function loop(t) {
+      const dt = Math.min(.05, Math.max(0, (t - last) / 1000)); last = t;
+      cx.clearRect(0, 0, W, H2);
+      fx = fx.filter(f => f(dt) !== false);
+      cx.globalCompositeOperation = 'source-over';
+      raf = fx.length ? requestAnimationFrame(loop) : 0;
+    }
+    function add(f) { fx.push(f); if (!raf) { last = performance.now(); raf = requestAnimationFrame(loop); } }
+    const ease = k => 1 - Math.pow(1 - clamp(k, 0, 1), 3);
+    const lighter = on => { cx.globalCompositeOperation = on ? 'lighter' : 'source-over'; };
+
+    /* ── 입자 ── */
+    function burst(x, y, rgb, n = 22, speed = 240, life = .8, grav = 0, size = 2) {
+      if (REDUCE) n = Math.ceil(n / 3);
+      const ps = Array.from({ length: n }, () => {
+        const a = Math.random() * 6.283, v = speed * (.25 + Math.random() * .75);
+        return { x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, l: life * (.5 + Math.random() * .5), r: Math.random() * size + .6 };
+      });
+      add(dt => {
+        let any = false; lighter(true);
+        for (const p of ps) {
+          if (p.l <= 0) continue; any = true;
+          p.l -= dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .95; p.vy = p.vy * .95 + grav * dt;
+          cx.fillStyle = `rgba(${rgb},${clamp(p.l / life * 1.4, 0, 1)})`;
+          cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.283); cx.fill();
+        }
+        lighter(false); return any;
+      });
+    }
+    /* 마법 가루: 마우스를 따라 흩날리고, 누르면 터진다 */
+    const dust = []; let dustOn = false;
+    function emitDust(x, y, n, spread) {
+      if (REDUCE) return;
+      for (let i = 0; i < n; i++) dust.push({ x, y, vx: (Math.random() - .5) * spread, vy: (Math.random() - .5) * spread - 12, l: .75, L: .75, r: Math.random() * 1.7 + .6 });
+      if (dust.length > 260) dust.splice(0, dust.length - 260);
+      if (dustOn) return;
+      dustOn = true;
+      add(dt => {
+        lighter(true);
+        for (let i = dust.length - 1; i >= 0; i--) {
+          const p = dust[i]; p.l -= dt;
+          if (p.l <= 0) { dust.splice(i, 1); continue; }
+          p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 28 * dt;
+          const a = p.l / p.L;
+          cx.fillStyle = `rgba(255,${(196 + a * 44) | 0},${(130 + a * 70) | 0},${a * .85})`;
+          cx.beginPath(); cx.arc(p.x, p.y, p.r * (.4 + a * .6), 0, 6.283); cx.fill();
+        }
+        lighter(false);
+        if (!dust.length) { dustOn = false; return false; }
+      });
+    }
+    if (!REDUCE) {
+      let lx = -99, ly = -99;
+      if (FINE) addEventListener('pointermove', e => {
+        if (e.pointerType !== 'mouse' || Intro.isOpen) return;
+        if (Math.hypot(e.clientX - lx, e.clientY - ly) > 16) { lx = e.clientX; ly = e.clientY; emitDust(lx, ly, 1, 26); }
+      }, { passive: true });
+      addEventListener('pointerdown', e => { if (!Intro.isOpen && !e.target.closest('.craft__pad')) emitDust(e.clientX, e.clientY, 9, 150); }, { passive: true });
+    }
+
+    function shake() { if (REDUCE) return; const m = $('#app'); m.classList.remove('is-shake'); void m.offsetWidth; m.classList.add('is-shake'); }
+    const inc = $('#incant'); let incT;
+    function incant(la, sub, rgb) {
+      inc.innerHTML = `<b>${esc(la)}</b>${sub ? `<span>${esc(sub)}</span>` : ''}`;
+      inc.style.setProperty('--ic', rgb);
+      inc.classList.remove('is-on'); void inc.offsetWidth; inc.classList.add('is-on');
+      clearTimeout(incT); incT = setTimeout(() => inc.classList.remove('is-on'), 2000);
+    }
+
+    /* ── 주문 효과 ── */
+    const ELEM = ['255,224,102', '255,112,64', '168,232,255', '84,164,255', '172,244,204'];
+    const ELEM_LA = ['THUNDER', 'FIRE', 'ICE', 'WATER', 'WIND'];
+    function beam(x1, y1, x2, y2, e) {
+      const rgb = ELEM[e], T1 = .16, T2 = .5, T3 = .9;
+      const nl = Math.hypot(x2 - x1, y2 - y1) || 1, nx = -(y2 - y1) / nl, ny = (x2 - x1) / nl;
+      let t = 0, hit = false;
+      add(dt => {
+        t += dt; if (t > T3) return false;
+        const g = ease(t / T1), f = t < T2 ? 1 : 1 - (t - T2) / (T3 - T2);
+        const ex = x1 + (x2 - x1) * g, ey = y1 + (y2 - y1) * g;
+        if (!hit && t >= T1) {
+          hit = true; shake();
+          burst(x2, y2, rgb, 36, 320, .9, e === 3 ? 520 : e === 1 ? -160 : 0, e === 2 ? 3 : 2);
+        }
+        lighter(true); cx.lineCap = 'round'; cx.lineJoin = 'round';
+        for (const [w, a] of [[24, .1], [11, .26], [3.5, .95]]) {
+          cx.strokeStyle = `rgba(${rgb},${a * f})`; cx.lineWidth = w * (1 + .12 * Math.sin(t * 70));
+          cx.beginPath(); cx.moveTo(x1, y1);
+          const seg = e === 0 ? 14 : e === 4 ? 26 : 1;
+          for (let i = 1; i <= seg; i++) {
+            const k = i / seg;
+            const j = e === 0 ? (i < seg ? (Math.random() - .5) * 24 : 0) : e === 4 ? Math.sin(k * 20 - t * 34) * 9 * (1 - k * .5) : 0;
+            cx.lineTo(x1 + (ex - x1) * k + nx * j, y1 + (ey - y1) * k + ny * j);
+          }
+          cx.stroke();
+        }
+        cx.fillStyle = `rgba(255,255,255,${f})`; cx.beginPath(); cx.arc(x1, y1, 4.5, 0, 6.283); cx.fill();
+        lighter(false);
+      });
+    }
+    function hexes(x, y, r, s) {
+      const h = s * Math.sqrt(3), rows = Math.ceil(r / (h / 2)) + 1, cols = Math.ceil(r / (s * 3)) + 1;
+      cx.beginPath();
+      for (let row = -rows; row <= rows; row++) for (let col = -cols; col <= cols; col++) {
+        const X = x + col * s * 3 + (row & 1 ? s * 1.5 : 0), Y = y + row * h / 2;
+        if (Math.hypot(X - x, Y - y) > r + s) continue;
+        for (let k = 0; k < 6; k++) { const a = Math.PI / 3 * k, px = X + s * Math.cos(a), py = Y + s * Math.sin(a); k ? cx.lineTo(px, py) : cx.moveTo(px, py); }
+        cx.closePath();
+      }
+    }
+    function shield(x, y, R, rgb = '196,226,255', dur = 1.9) {
+      let t = 0;
+      add(dt => {
+        t += dt; if (t > dur) return false;
+        const r = Math.max(1, R * ease(t / .42)), a = t < dur - .6 ? 1 : (dur - t) / .6;
+        lighter(true);
+        const g = cx.createRadialGradient(x, y, r * .1, x, y, r);
+        g.addColorStop(0, `rgba(${rgb},0)`); g.addColorStop(.78, `rgba(${rgb},${.09 * a})`); g.addColorStop(1, `rgba(${rgb},${.42 * a})`);
+        cx.fillStyle = g; cx.beginPath(); cx.arc(x, y, r, 0, 6.283); cx.fill();
+        cx.save(); cx.beginPath(); cx.arc(x, y, r, 0, 6.283); cx.clip();
+        cx.strokeStyle = `rgba(${rgb},${(.15 + .1 * Math.sin(t * 9)) * a})`; cx.lineWidth = 1;
+        hexes(x, y, r, Math.max(14, R / 16)); cx.stroke(); cx.restore();
+        cx.strokeStyle = `rgba(${rgb},${.9 * a})`; cx.lineWidth = 2;
+        cx.beginPath(); cx.arc(x, y, r, 0, 6.283); cx.stroke();
+        lighter(false);
+      });
+    }
+    function smoke(x, y, n = 26) {
+      if (REDUCE) n = 8;
+      const ps = Array.from({ length: n }, () => { const a = Math.random() * 6.283, v = 40 + Math.random() * 130; return { x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 24, r: 10 + Math.random() * 18, l: 1 + Math.random() * .6 }; });
+      add(dt => {
+        let any = false;
+        for (const p of ps) {
+          if (p.l <= 0) continue; any = true;
+          p.l -= dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .93; p.vy *= .93; p.r += 36 * dt;
+          const g = cx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+          g.addColorStop(0, `rgba(160,150,205,${clamp(p.l, 0, 1) * .45})`); g.addColorStop(1, 'rgba(160,150,205,0)');
+          cx.fillStyle = g; cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.283); cx.fill();
+        }
+        return any;
+      });
+      burst(x, y, '205,195,255', 18, 220, .6);
+    }
+    function fogma(x, y, stage) {
+      smoke(x, y);
+      setTimeout(() => {
+        let tx = W / 2, ty = H2 / 2;
+        if (stage) {
+          const r = stage.getBoundingClientRect();
+          tx = r.left + r.width * (.2 + Math.random() * .6); ty = r.top + r.height * (.2 + Math.random() * .6);
+        } else {
+          /* 같은 화면 안의 다른 구역으로 순간이동 */
+          const secs = $$(`#v-${current} section[id], #v-${current} .hero`).filter(s => s.offsetHeight && Math.abs(s.getBoundingClientRect().top) > innerHeight * .5);
+          const to = secs[Math.floor(Math.random() * secs.length)];
+          if (to) window.scrollTo(0, to.getBoundingClientRect().top + scrollY - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-top')) - 24);
+        }
+        smoke(tx, ty, 18);
+      }, 340);
+    }
+    function chains(x, y, R) {
+      let t = 0; const dur = 2;
+      add(dt => {
+        t += dt; if (t > dur) return false;
+        const k = ease(t / .7), a = t < dur - .5 ? 1 : (dur - t) / .5, r = R * (1.7 - 1 * k);
+        lighter(true); cx.lineWidth = 2;
+        for (let ring = 0; ring < 3; ring++) {
+          const rot = ring * Math.PI / 3 + t * (ring % 2 ? -1.1 : 1.1);
+          for (let i = 0; i < 24; i++) {
+            const th = i / 24 * 6.283, px = Math.cos(th) * r, py = Math.sin(th) * r * .36;
+            const X = x + px * Math.cos(rot) - py * Math.sin(rot), Y = y + px * Math.sin(rot) + py * Math.cos(rot);
+            const ang = Math.atan2(Math.cos(th) * r * .36, -Math.sin(th) * r) + rot;
+            cx.strokeStyle = `rgba(255,214,130,${a * (i % 2 ? .95 : .55)})`;
+            cx.beginPath(); cx.ellipse(X, Y, 7, 3.4, i % 2 ? ang : ang + Math.PI / 2, 0, 6.283); cx.stroke();
+          }
+        }
+        lighter(false);
+      });
+      setTimeout(() => { burst(x, y, '255,214,130', 26, 200, .7); shake(); }, 700);
+    }
+    function revelo(x, y) {
+      let t = 0; const dur = 1.7, R = Math.hypot(W, H2);
+      add(dt => {
+        t += dt; if (t > dur) return false;
+        lighter(true);
+        for (let i = 0; i < 3; i++) {
+          const k = (t - i * .2) / (dur - .4); if (k <= 0 || k >= 1) continue;
+          cx.strokeStyle = `rgba(170,240,255,${(1 - k) * .75})`; cx.lineWidth = 2 + 7 * (1 - k);
+          cx.beginPath(); cx.arc(x, y, R * ease(k), 0, 6.283); cx.stroke();
+        }
+        lighter(false);
+      });
+      /* 숨겨진 것이 잠시 드러난다 (창립자의 서고 글씨 등) */
+      body.classList.add('is-revealed'); clearTimeout(revelo.t); revelo.t = setTimeout(() => body.classList.remove('is-revealed'), 5000);
+    }
+    function machina(x, y) {
+      body.classList.remove('is-glitch'); void body.offsetWidth; body.classList.add('is-glitch');
+      setTimeout(() => body.classList.remove('is-glitch'), 850);
+      for (let i = 0; i < 7; i++) setTimeout(() => burst(x + (Math.random() - .5) * 360, y + (Math.random() - .5) * 240, '140,220,255', 14, 280, .4), i * 80);
+    }
+    function redFlash() {
+      let t = 0;
+      add(dt => {
+        t += dt; if (t > .9) return false;
+        const g = cx.createRadialGradient(W / 2, H2 / 2, Math.min(W, H2) * .3, W / 2, H2 / 2, Math.hypot(W, H2) * .6);
+        g.addColorStop(0, 'rgba(224,60,40,0)'); g.addColorStop(1, `rgba(224,60,40,${.45 * (1 - t / .9)})`);
+        cx.fillStyle = g; cx.fillRect(0, 0, W, H2);
+      });
+    }
+
+    /* ── 시전 ── */
+    const SP = { vima: ['basic', 0], enprotecto: ['basic', 1], fogma: ['basic', 2], machina: ['war', 0], ligatus: ['war', 1], revelo: ['war', 2], murus: ['war', 3] };
+    let elem = clamp(store.get('elem', 0) | 0, 0, 4);
+    function cast(key, o = {}) {
+      const [kind, i] = SP[key], s = D.SPELLS[kind][i];
+      const x = o.x != null ? o.x : W / 2, y = o.y != null ? o.y : H2 / 2;
+      let la = s.la, sub = s.n, rgb = '255,214,140';
+      if (key === 'vima') {
+        la += ' ' + ELEM_LA[elem]; sub = `${s.n} · ${s.opt[elem]}`; rgb = ELEM[elem];
+        let x2 = o.x2, y2 = o.y2;
+        if (x2 == null) { x2 = W * (.3 + Math.random() * .4); y2 = H2 * .2; }
+        beam(x, y, x2, y2, elem);
+      } else if (key === 'enprotecto') { rgb = '196,226,255'; shield(x, y, o.r || Math.min(W, H2) * .24); }
+      else if (key === 'fogma') { rgb = '205,195,255'; fogma(x, y, o.stage); }
+      else if (key === 'machina') { rgb = '140,220,255'; machina(x, y); }
+      else if (key === 'ligatus') { chains(x, y, o.r || Math.min(W, H2) * .16); }
+      else if (key === 'revelo') { rgb = '170,240,255'; revelo(x, y); }
+      else if (key === 'murus') { shield(W / 2, H2 + 30, Math.max(W, H2) * .72, '255,214,140', 2.7); shake(); }
+      const h = points.add(2, true);
+      incant(la, h ? `${sub}   +2 · ${H[h].name}` : sub, rgb);
+    }
+    function forbid(x, y) {
+      redFlash(); shake(); burst(x, y, '224,80,60', 20, 200, .6);
+      incant(T('cast.forbid'), T('cast.forbidSub'), '224,100,79');
+    }
+
+    /* ── 룬 인식: 직선 → 비마 · 원 → 엔프로텍토 · Z자 → 포그마 엔도 ── */
+    function resample(pts, n) {
+      let L = 0; for (let i = 1; i < pts.length; i++) L += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+      const step = L / (n - 1), out = [pts[0]]; let acc = 0, src = pts.slice();
+      for (let i = 1; i < src.length; i++) {
+        const d = Math.hypot(src[i].x - src[i - 1].x, src[i].y - src[i - 1].y);
+        if (acc + d >= step && d > 0) {
+          const k = (step - acc) / d, q = { x: src[i - 1].x + k * (src[i].x - src[i - 1].x), y: src[i - 1].y + k * (src[i].y - src[i - 1].y) };
+          out.push(q); src.splice(i, 0, q); acc = 0;
+        } else acc += d;
+      }
+      while (out.length < n) out.push(pts[pts.length - 1]);
+      return out;
+    }
+    const wrap = a => { while (a > Math.PI) a -= 6.283; while (a < -Math.PI) a += 6.283; return a; };
+    function recognize(pts) {
+      if (pts.length < 6) return null;
+      const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+      const bw = Math.max(...xs) - Math.min(...xs), bh = Math.max(...ys) - Math.min(...ys), diag = Math.hypot(bw, bh);
+      let L = 0; for (let i = 1; i < pts.length; i++) L += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+      if (L < 70 || diag < 50) return null;
+      const chord = Math.hypot(pts[pts.length - 1].x - pts[0].x, pts[pts.length - 1].y - pts[0].y);
+      if (chord / L > .86) return 'line';
+      const rs = resample(pts, 40), dir = [];
+      for (let i = 1; i < rs.length; i++) dir.push(Math.atan2(rs[i].y - rs[i - 1].y, rs[i].x - rs[i - 1].x));
+      let turn = 0; const corners = [];
+      for (let i = 1; i < dir.length; i++) turn += wrap(dir[i] - dir[i - 1]);
+      for (let i = 1; i < dir.length - 1; i++) if (Math.abs(wrap(dir[i + 1] - dir[i - 1])) > 2) { corners.push(i); i += 2; }
+      const sharp = corners.length, ratio = bw / (bh || 1);
+      if (Math.abs(turn) > 4.3 && chord < diag * .5 && ratio > .4 && ratio < 2.5 && sharp < 2) return 'circle';
+      /* Z자: 뚜렷한 꺾임 2~4번, 꺾임 사이의 획은 곧아야 한다 (구불구불한 낙서는 제외) */
+      if (sharp >= 2 && sharp <= 4) {
+        const cut = [0, ...corners, rs.length - 1];
+        const straight = cut.slice(1).every((e, k) => {
+          const s = cut[k]; if (e - s < 3) return true;
+          let len = 0; for (let i = s + 1; i <= e; i++) len += Math.hypot(rs[i].x - rs[i - 1].x, rs[i].y - rs[i - 1].y);
+          return Math.hypot(rs[e].x - rs[s].x, rs[e].y - rs[s].y) / (len || 1) > .82;
+        });
+        if (straight) return 'zig';
+      }
+      return null;
+    }
+
+    /* ── ② 주문 연습 (실습 화면) ── */
+    const RUNE_SVG = {
+      vima: '<path d="M10 34 L50 6"/>',
+      enprotecto: '<circle cx="30" cy="20" r="14"/>',
+      fogma: '<path d="M12 8 H48 L12 32 H48"/>'
+    };
+    const RUNE_SHAPE = { vima: 'cast.line', enprotecto: 'cast.circle', fogma: 'cast.zig' };
+    const Craft = (() => {
+      const stage = $('#craftStage'), pad = $('#craftPad'), pc = pad.getContext('2d'), hint = $('#craftHint');
+      let pw = 0, ph = 0, drawing = false, pts = [], fade = null;
+      function size() {
+        const r = pad.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+        pw = r.width; ph = r.height; pad.width = pw * dpr; pad.height = ph * dpr; pc.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function stroke(alpha) {
+        pc.clearRect(0, 0, pw, ph);
+        if (pts.length < 2) return;
+        pc.lineCap = 'round'; pc.lineJoin = 'round';
+        for (const [w, a] of [[14, .08], [6, .25], [2.2, .95]]) {
+          pc.strokeStyle = `rgba(255,214,140,${a * alpha})`; pc.lineWidth = w;
+          pc.beginPath(); pc.moveTo(pts[0].x, pts[0].y); pts.forEach(p => pc.lineTo(p.x, p.y)); pc.stroke();
+        }
+      }
+      function fadeOut() {
+        let a = 1; cancelAnimationFrame(fade);
+        const f = () => { a -= .06; stroke(Math.max(0, a)); if (a > 0) fade = requestAnimationFrame(f); else { pts = []; pc.clearRect(0, 0, pw, ph); } };
+        fade = requestAnimationFrame(f);
+      }
+      function say(s, bad) { hint.textContent = s; hint.classList.toggle('is-bad', !!bad); stage.classList.remove('is-miss'); if (bad) { void stage.offsetWidth; stage.classList.add('is-miss'); } }
+      pad.addEventListener('pointerdown', e => {
+        e.preventDefault(); cancelAnimationFrame(fade);
+        pad.setPointerCapture(e.pointerId); drawing = true;
+        const r = pad.getBoundingClientRect(); pts = [{ x: e.clientX - r.left, y: e.clientY - r.top }];
+        stage.classList.add('is-drawing');
+      });
+      pad.addEventListener('pointermove', e => {
+        if (!drawing) return;
+        const r = pad.getBoundingClientRect(), p = { x: e.clientX - r.left, y: e.clientY - r.top }, q = pts[pts.length - 1];
+        if (Math.hypot(p.x - q.x, p.y - q.y) < 3) return;
+        pts.push(p); stroke(1);
+        if (pts.length % 3 === 0) emitDust(e.clientX, e.clientY, 1, 30);
+      });
+      const end = () => {
+        if (!drawing) return; drawing = false; stage.classList.remove('is-drawing');
+        const shape = recognize(pts), r = pad.getBoundingClientRect();
+        const key = { line: 'vima', circle: 'enprotecto', zig: 'fogma' }[shape];
+        if (!key) { say(T('cast.fail'), true); fadeOut(); return; }
+        const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+        const cxp = r.left + (Math.min(...xs) + Math.max(...xs)) / 2, cyp = r.top + (Math.min(...ys) + Math.max(...ys)) / 2;
+        const a = pts[0], b = pts[pts.length - 1];
+        say(`${D.SPELLS.basic[SP[key][1]].n} — ${T(RUNE_SHAPE[key])}`);
+        if (key === 'vima') {
+          const dx = b.x - a.x, dy = b.y - a.y, k = Math.max(W, H2) / (Math.hypot(dx, dy) || 1) * .6;
+          cast('vima', { x: r.left + a.x, y: r.top + a.y, x2: r.left + b.x + dx * k, y2: r.top + b.y + dy * k });
+        } else if (key === 'enprotecto') cast('enprotecto', { x: cxp, y: cyp, r: Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) * .8 });
+        else cast('fogma', { x: cxp, y: cyp, stage });
+        fadeOut();
+      };
+      pad.addEventListener('pointerup', end); pad.addEventListener('pointercancel', end);
+      addEventListener('resize', () => { if (current === 'practice') size(); });
+
+      function render() {
+        size();
+        hint.textContent = T('pr.spell.hint'); hint.classList.remove('is-bad');
+        $('#runeList').innerHTML = Object.keys(RUNE_SVG).map(k => {
+          const s = D.SPELLS.basic[SP[k][1]];
+          return `<li><button class="rune" type="button" data-cast="${k}"><svg viewBox="0 0 60 40" aria-hidden="true">${RUNE_SVG[k]}</svg><span><b>${esc(s.n)}</b><small>${esc(s.la)} · ${esc(T(RUNE_SHAPE[k]))}</small></span><em>${esc(s.k)}</em></button></li>`;
+        }).join('');
+        $('#elemList').innerHTML = D.SPELLS.basic[0].opt.map((o, k) => `<button type="button" role="radio" aria-checked="${k === elem}" data-elem="${k}" style="--ec:${ELEM[k]}"><i></i>${esc(o)}</button>`).join('');
+        $('#warList').innerHTML = D.SPELLS.war.map((s, k) => `<button class="wspell" type="button" data-cast="${SPELL_KEYS.war[k]}"><b>${esc(s.n)}</b><small>${esc(s.la)}</small></button>`).join('');
+      }
+      $('#elemList').addEventListener('click', e => {
+        const b = e.target.closest('[data-elem]'); if (!b) return;
+        elem = +b.dataset.elem; store.set('elem', elem);
+        $$('#elemList [data-elem]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
+      });
+      const center = () => { const r = stage.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2, stage }; };
+      return { render, center };
+    })();
+
+    /* ── ③ 기숙사 점수 모래시계 ── */
+    const HG = 'M22 18 H98 C98 66 72 96 64 120 C72 144 98 174 98 222 H22 C22 174 48 144 56 120 C48 96 22 66 22 18 Z';
+    const points = (() => {
+      const BASE = { brevalin: 1284, clamis: 1251, curringlindt: 1302 };
+      const house = () => { const h = store.get('house', null); return H[h] ? h : null; };
+      let mine = store.get('pts', 0) | 0;
+      function add(n, quiet) {
+        const h = house(); if (!h) return null;
+        mine += n; store.set('pts', mine);
+        if (!quiet) toast(T('pt.gain', { house: H[h].name, n }));
+        paint(h); return h;
+      }
+      const hgHTML = id => `<figure class="hg" data-h="${id}" style="--hc:${H[id].rgb}">
+        <svg class="hg__svg" viewBox="0 0 120 240" aria-hidden="true">
+          <defs>
+            <clipPath id="hgc-${id}"><path d="${HG}"/></clipPath>
+            <pattern id="hgp-${id}" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="rgb(${H[id].rgb})"/><path d="M0 0L5 5L0 10Z" fill="rgba(0,0,0,.2)"/><path d="M10 0L5 5L10 10Z" fill="rgba(255,255,255,.12)"/><circle cx="6.5" cy="3" r="1.3" fill="rgba(255,255,255,.6)"/></pattern>
+            <linearGradient id="hgs-${id}" x1="0" x2="1"><stop offset="0" stop-color="rgba(255,255,255,0)"/><stop offset=".25" stop-color="rgba(255,255,255,.22)"/><stop offset=".4" stop-color="rgba(255,255,255,0)"/></linearGradient>
+          </defs>
+          <g clip-path="url(#hgc-${id})">
+            <rect class="hg__top" x="0" y="64" width="120" height="56" fill="url(#hgp-${id})"/>
+            <rect class="hg__bot" x="0" y="122" width="120" height="100" fill="url(#hgp-${id})"/>
+            <rect class="hg__stream" x="58.6" y="114" width="2.8" height="108" fill="rgb(${H[id].rgb})"/>
+          </g>
+          <path class="hg__glass" d="${HG}"/>
+          <path d="${HG}" fill="url(#hgs-${id})"/>
+          <rect class="hg__cap" x="12" y="7" width="96" height="11" rx="2.5"/><rect class="hg__cap" x="12" y="222" width="96" height="11" rx="2.5"/>
+        </svg>
+        <figcaption><img src="${crest(id)}" alt=""><b class="hg__n">0</b><span>${esc(H[id].name)}</span></figcaption>
+      </figure>`;
+      function countTo(el, n) {
+        const from = +el.dataset.v || 0; el.dataset.v = n;
+        if (REDUCE || from === n) { el.textContent = n.toLocaleString(); return; }
+        const t0 = performance.now(), d = 1100;
+        const f = t => { const k = ease((t - t0) / d); el.textContent = Math.round(from + (n - from) * k).toLocaleString(); if (k < 1) requestAnimationFrame(f); };
+        requestAnimationFrame(f);
+      }
+      function paint(flow) {
+        const box = $('#hourglasses'); if (!box) return;
+        if (!box.children.length) box.innerHTML = HOUSE_IDS.map(hgHTML).join('');
+        const h = house(), t = Object.assign({}, BASE); if (h) t[h] += mine;
+        const vals = HOUSE_IDS.map(id => t[id]), mn = Math.min(...vals), mx = Math.max(...vals);
+        HOUSE_IDS.forEach(id => {
+          const el = $(`.hg[data-h="${id}"]`, box);
+          const p = .42 + (mx === mn ? .2 : (t[id] - mn) / (mx - mn) * .46);
+          el.style.setProperty('--p', p.toFixed(3));
+          el.classList.toggle('is-mine', id === h);
+          countTo($('.hg__n', el), t[id]);
+          if (flow === id) { el.classList.remove('is-flow'); void el.offsetWidth; el.classList.add('is-flow'); }
+        });
+        const m = $('#ptsMine');
+        m.innerHTML = h
+          ? `<b>${T('pt.mine', { n: mine })}</b><span>${T('pt.how')}</span>`
+          : `<span>${T('pt.none')}</span><button class="btn-ghost" type="button" data-go="sorting">${T('pt.toSort')} ›</button>`;
+      }
+      return { add, paint, house };
+    })();
+
+    /* ── ④ 지팡이 가게 ── */
+    const WOODS = T('wand.woods').split('|'), CORES = T('wand.cores').split('|'), CDESC = T('wand.cdesc').split('|');
+    const WOOD_COL = ['#2c221d', '#c9a77c', '#e3d7c0', '#8a4a2c', '#a5582f', '#9a4b3c', '#5f3d23', '#dad6ce'];
+    const CORE_RGB = ['196,170,255', '190,226,255', '255,200,130', '255,236,160', '140,205,190'];
+    const wandText = w => T('wand.fmt', { wood: WOODS[w.w], core: CORES[w.c], len: w.len });
+    const wandSVG = (w, id) => `<svg class="wand" viewBox="0 0 320 32" aria-hidden="true" style="--core:${CORE_RGB[w.c]}">
+      <defs><linearGradient id="wg-${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,255,255,.38)"/><stop offset=".45" stop-color="rgba(255,255,255,0)"/><stop offset="1" stop-color="rgba(0,0,0,.45)"/></linearGradient></defs>
+      <path d="M6 16 C6 9 26 8.5 40 9 L84 10 C90 10 92 11.5 96 11.8 L306 14.6 Q312 16 306 17.4 L96 20.2 C92 20.5 90 22 84 22 L40 23 C26 23.5 6 23 6 16 Z" fill="${WOOD_COL[w.w]}"/>
+      <path d="M6 16 C6 9 26 8.5 40 9 L84 10 C90 10 92 11.5 96 11.8 L306 14.6 Q312 16 306 17.4 L96 20.2 C92 20.5 90 22 84 22 L40 23 C26 23.5 6 23 6 16 Z" fill="url(#wg-${id})"/>
+      <path d="M30 9.2 V22.8 M36 9 V23 M88 10.4 V21.6" stroke="rgba(0,0,0,.28)" stroke-width="1.6"/>
+      <circle class="wand__tip" cx="309" cy="16" r="3.4"/>
+    </svg>`;
+    const Shop = (() => {
+      let opened = -1;
+      function roll() { return { w: Math.floor(Math.random() * WOODS.length), c: Math.floor(Math.random() * CORES.length), len: 23 + Math.floor(Math.random() * 12) }; }
+      function render() {
+        const box = $('#wandShop'), mine = store.get('wand', null);
+        opened = -1;
+        if (mine && WOODS[mine.w] && CORES[mine.c]) { result(mine, false); return; }
+        box.innerHTML = `<p class="shop__pick">${T('pr.wand.pick')}</p>
+          <div class="wboxes">${[0, 1, 2].map(i => `<button class="wbox" type="button" data-box="${i}" style="--d:${i}"><span class="wbox__lid"></span><span class="wbox__body"><i></i><em>${['I', 'II', 'III'][i]}</em></span></button>`).join('')}</div>`;
+      }
+      function result(w, fresh) {
+        $('#wandShop').innerHTML = `<div class="wresult${fresh ? ' is-fresh' : ''}" style="--core:${CORE_RGB[w.c]}">
+          <div class="wresult__wand">${wandSVG(w, 'r')}</div>
+          <p class="eyebrow">${T('pr.wand.yours')}</p>
+          <h3>${esc(WOODS[w.w])} <span>·</span> ${esc(CORES[w.c])}</h3>
+          <p class="wresult__len">${T('pr.wand.len')} ${w.len}cm</p>
+          <p class="wresult__desc">${esc(CDESC[w.c])}</p>
+          <button class="btn-ghost" type="button" id="wandAgain"><svg><use href="#i-replay"/></svg><span>${T('pr.wand.again')}</span></button>
+        </div>`;
+      }
+      $('#wandShop').addEventListener('click', e => {
+        const b = e.target.closest('[data-box]');
+        if (b && opened < 0) {
+          opened = +b.dataset.box;
+          const w = roll(); store.set('wand', w);
+          $$('.wbox').forEach(x => x.classList.toggle('is-off', x !== b));
+          b.classList.add('is-open');
+          const r = b.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height * .3, CORE_RGB[w.c], 30, 240, .9, -60);
+          if (!store.get('wandPts', false)) { store.set('wandPts', true); points.add(3); }
+          setTimeout(() => result(w, true), REDUCE ? 50 : 900);
+          return;
+        }
+        if (e.target.closest('#wandAgain')) { opened = -1; store.set('wand', null); render(); }
+      });
+      return { render };
+    })();
+
+    /* ── ⑤ 입학 통지서 · 학생증 ── */
+    const hash = s => { let h = 2166136261; for (const ch of s) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+    const Post = (() => {
+      const box = $('#post');
+      function render() {
+        const h = points.house();
+        if (!h) {
+          box.innerHTML = `<div class="post__empty"><svg aria-hidden="true"><use href="#sig-raven"/></svg><p>${T('lt.empty')}</p><button class="btn-main" type="button" data-go="sorting"><svg><use href="#i-wand"/></svg><span>${T('pt.toSort')}</span></button></div>`;
+          return;
+        }
+        const name = store.get('name', '') || T('so.you'), w = store.get('wand', null), hs = H[h];
+        const sealed = store.get('sealed', true);
+        box.innerHTML = `
+          <div class="env${sealed ? '' : ' is-gone'}" style="--hc:${hs.rgb}">
+            <button class="env__body" type="button" id="envOpen" aria-label="${esc(T('lt.tap'))}">
+              <span class="env__flap" aria-hidden="true"></span>
+              <span class="env__addr"><small>RAVENFORD SCHOOL OF MAGIC</small><b>${esc(T('lt.to', { name }))}</b><em>${esc(T('lt.envSub', { house: hs.name }))}</em></span>
+              <span class="env__seal" aria-hidden="true"><img src="${crest(h)}" alt=""></span>
+            </button>
+            <p class="env__tap">${T('lt.tap')}</p>
+          </div>
+          <article class="letter${sealed ? '' : ' is-on'}" style="--hc:${hs.rgb}"${sealed ? ' hidden' : ''}>
+            <div class="letter__paper">
+              <header class="letter__head"><svg aria-hidden="true"><use href="#sig-raven"/></svg><p>RAVENFORD SCHOOL OF MAGIC</p><b>${T('lt.school')}</b></header>
+              <p class="letter__to">${esc(T('lt.to', { name }))}</p>
+              <p>${esc(T('lt.p1'))}</p>
+              <p>${esc(T('lt.p2', { house: hs.name }))}</p>
+              <p>${esc(T('lt.p3'))}</p>
+              <p>${esc(w && WOODS[w.w] ? T('lt.p4w', { wand: wandText(w) }) : T('lt.p4'))}</p>
+              <footer class="letter__sign">
+                <div><i>Kaiden Bolt</i><span>${T('lt.sign1')}</span></div>
+                <div><i>Isabella Blackwood</i><span>${T('lt.sign2')}</span></div>
+              </footer>
+              <span class="letter__seal" aria-hidden="true"><img src="${crest(h)}" alt=""></span>
+            </div>
+            <div class="letter__btns">
+              <button class="btn-main" type="button" id="idSave"><svg><use href="#i-down"/></svg><span>${T('lt.save')}</span></button>
+              <button class="btn-ghost" type="button" id="envReseal"><span>${T('lt.reseal')}</span></button>
+            </div>
+          </article>`;
+      }
+      box.addEventListener('click', e => {
+        if (e.target.closest('#envOpen')) {
+          const env = $('.env', box); if (env.classList.contains('is-open')) return;
+          env.classList.add('is-open');
+          const s = $('.env__seal', box).getBoundingClientRect();
+          burst(s.left + s.width / 2, s.top + s.height / 2, points.house() ? H[points.house()].rgb : '255,214,140', 26, 220, .8);
+          if (!store.get('letterPts', false)) { store.set('letterPts', true); points.add(5); }
+          store.set('sealed', false);
+          setTimeout(() => {
+            env.classList.add('is-gone');
+            const l = $('.letter', box); l.hidden = false; void l.offsetWidth; l.classList.add('is-on');
+          }, REDUCE ? 60 : 1100);
+          return;
+        }
+        if (e.target.closest('#envReseal')) { store.set('sealed', true); render(); return; }
+        const sv = e.target.closest('#idSave');
+        if (sv && !sv.disabled) { sv.disabled = true; sv.classList.add('is-busy'); saveId().finally(() => { sv.disabled = false; sv.classList.remove('is-busy'); }); }
+      });
+      const loadImg = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; });
+      function rr(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+      async function saveId() {
+        const h = points.house(); if (!h) return;
+        const name = store.get('name', '') || T('so.you'), w = store.get('wand', null), hs = H[h];
+        try { await document.fonts.ready; } catch (e) {}
+        const CW = 1200, CH = 750, c = document.createElement('canvas'); c.width = CW; c.height = CH;
+        const g = c.getContext('2d'), serif = getComputedStyle(document.documentElement).getPropertyValue('--f-serif'), sans = getComputedStyle(document.documentElement).getPropertyValue('--f-body');
+        rr(g, 0, 0, CW, CH, 40); g.save(); g.clip();
+        const bg = g.createLinearGradient(0, 0, CW, CH); bg.addColorStop(0, '#0e1016'); bg.addColorStop(1, '#171a22'); g.fillStyle = bg; g.fillRect(0, 0, CW, CH);
+        const gl = g.createRadialGradient(260, 330, 0, 260, 330, 640); gl.addColorStop(0, `rgba(${hs.rgb},.42)`); gl.addColorStop(1, `rgba(${hs.rgb},0)`); g.fillStyle = gl; g.fillRect(0, 0, CW, CH);
+        g.fillStyle = `rgb(${hs.rgb})`; g.fillRect(0, 0, CW, 12);
+        g.restore();
+        g.strokeStyle = 'rgba(255,255,255,.14)'; g.lineWidth = 2; rr(g, 26, 26, CW - 52, CH - 52, 26); g.stroke();
+        try { const im = await loadImg(crest(h)); g.drawImage(im, 70, 150, 330, 330); } catch (e) {}
+        g.textBaseline = 'alphabetic';
+        g.fillStyle = '#d2b37a'; g.font = `600 26px Cinzel, ${serif}`; if ('letterSpacing' in g) g.letterSpacing = '8px';
+        g.fillText('RAVENFORD SCHOOL OF MAGIC', 72, 104);
+        g.textAlign = 'right'; g.fillStyle = 'rgba(238,234,227,.5)'; g.font = `600 22px ${sans}`; g.fillText('STUDENT ID', CW - 72, 104);
+        if ('letterSpacing' in g) g.letterSpacing = '0px';
+        g.textAlign = 'left'; g.fillStyle = '#f2eee7'; g.font = `700 76px ${serif}`;
+        let nm = name; while (g.measureText(nm).width > 700 && nm.length > 1) nm = nm.slice(0, -1);
+        g.fillText(nm, 440, 250);
+        g.fillStyle = `rgb(${hs.rgb})`; g.fillRect(440, 282, 90, 3);
+        const no = 'RF-' + String(hash(name + h) % 9000 + 1000);
+        const rows = [[T('id.house'), `${hs.name} · ${hs.en}`], [T('id.year'), T('id.year1')], [T('id.wand'), w && WOODS[w.w] ? wandText(w) : '—'], [T('id.no'), no], [T('id.issued'), new Date().toLocaleDateString(LANG === 'zh' ? 'zh-Hant' : LANG)]];
+        rows.forEach(([k, v], i) => {
+          const y = 350 + i * 62;
+          g.fillStyle = 'rgba(238,234,227,.48)'; g.font = `600 21px ${sans}`; g.fillText(k, 440, y);
+          g.fillStyle = '#eeeae3'; g.font = `600 28px ${sans}`;
+          let s = v; while (g.measureText(s).width > 560 && s.length > 1) s = s.slice(0, -1);
+          g.fillText(s, 590, y);
+        });
+        g.fillStyle = 'rgba(238,234,227,.35)'; g.font = `500 20px ${sans}`; g.fillText(`${hs.en.toUpperCase()} · ${hs.mottoEn}`, 72, CH - 64);
+        await new Promise(done => c.toBlob(b => {
+          if (b) {
+            const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'ravenford-student-id.png';
+            document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+          }
+          done();
+        }, 'image/png'));
+      }
+      return { render };
+    })();
+
+    /* ── ⑥ 장면 연출 ── */
+    /* 창립자의 서고: 지팡이 불빛을 비추면 어둠 속 글씨가 드러난다 */
+    document.addEventListener('pointermove', e => {
+      const l = e.target.closest('.lumos'); if (!l) return;
+      const r = l.getBoundingClientRect(), img = l.parentElement;
+      img.style.setProperty('--lx', (e.clientX - r.left) + 'px'); img.style.setProperty('--ly', (e.clientY - r.top) + 'px');
+      img.classList.add('is-lit');
+    }, { passive: true });
+    document.addEventListener('pointerout', e => { const l = e.target.closest && e.target.closest('.lumos'); if (l && !l.contains(e.relatedTarget)) l.parentElement.classList.remove('is-lit'); });
+    /* 학교 첫 화면: 떠다니는 촛불 */
+    const hero = $('.hero--school');
+    if (hero && !REDUCE) {
+      const wrapEl = document.createElement('div'); wrapEl.className = 'candles'; wrapEl.setAttribute('aria-hidden', 'true');
+      wrapEl.innerHTML = Array.from({ length: 18 }, (_, i) => {
+        const x = (i * 53 + 7) % 100, y = 8 + ((i * 37) % 60), s = .6 + ((i * 29) % 10) / 14;
+        return `<i style="left:${x}%;top:${y}%;--s:${s.toFixed(2)};--d:${(-(i * 1.37) % 7).toFixed(2)}s;--t:${(5 + (i % 5)).toFixed(1)}s"></i>`;
+      }).join('');
+      hero.prepend(wrapEl);
+    }
+
+    /* ── 실습 화면 진입 ── */
+    onEnter.practice = () => { Craft.render(); points.paint(); Shop.render(); Post.render(); };
+
+    /* 주문 버튼 (실습 화면의 룬 · 전시 주문은 연습 원 가운데에서, 그 밖의 카드는 버튼 자리에서) */
+    document.addEventListener('click', e => {
+      const b = e.target.closest('[data-cast]');
+      if (b) {
+        const inPractice = !!b.closest('#v-practice');
+        if (inPractice) { const c = Craft.center(); cast(b.dataset.cast, c); return; }
+        const r = b.getBoundingClientRect(); cast(b.dataset.cast, { x: r.left + r.width / 2, y: r.top + r.height / 2 });
+        return;
+      }
+      const f = e.target.closest('[data-forbid]');
+      if (f) { const r = f.getBoundingClientRect(); forbid(r.left + r.width / 2, r.top + r.height / 2); }
+    });
+
+    return { cast, points };
   })();
 
   /* 터치 기기에서 그림 · 카드 · 버튼을 꾹 누르면 뜨는 메뉴(이미지 저장 등) 막기 */

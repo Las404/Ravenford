@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+KR:wght@500;700;900&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <!-- 버전 번호(?v=)를 바꾸면 브라우저가 예전 파일 대신 새 파일을 받는다. 수정할 때마다 함께 올린다 -->
-<link rel="stylesheet" href="css/style.css?v=20261018-1300">
+<link rel="stylesheet" href="css/style.css?v=20261018-1800">
 <script>
 /* 언어 고르기: 주소의 ?lang= → 저장된 선택 → 브라우저 언어 순서. 한국어가 아니면 번역 파일을 먼저 읽는다 */
 (function () {
@@ -34,7 +34,7 @@
   if (L !== 'ko') {
     var f = { ja: 'Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900', zh: 'Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700;900' }[L];
     if (f) document.write('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + f + '&display=swap">');
-    document.write('<script src="js/lang/' + L + '.js?v=20261018-1300"><\/script>');
+    document.write('<script src="js/lang/' + L + '.js?v=20261018-1800"><\/script>');
   }
 })();
 </script>
@@ -145,8 +145,9 @@
     <a href="#world" data-go="world"><b>I</b><span data-i18n="nav.world">세계관</span></a>
     <a href="#school" data-go="school"><b>II</b><span data-i18n="nav.school">레이븐포드</span></a>
     <a href="#sorting" data-go="sorting" class="is-orb"><b>III</b><span data-i18n="nav.sorting">기숙사 배정</span></a>
-    <a href="#characters" data-go="characters"><b>IV</b><span data-i18n="nav.characters">인물</span></a>
-    <a href="#relations" data-go="relations"><b>V</b><span data-i18n="nav.relations">관계도</span></a>
+    <a href="#practice" data-go="practice"><b>IV</b><span data-i18n="nav.practice">마법 실습</span></a>
+    <a href="#characters" data-go="characters"><b>V</b><span data-i18n="nav.characters">인물</span></a>
+    <a href="#relations" data-go="relations"><b>VI</b><span data-i18n="nav.relations">관계도</span></a>
   </nav>
   <div class="hud__tools">
     <button class="hud__btn" id="btnIntro" type="button" aria-label="인트로 다시 보기" title="인트로 다시 보기" data-i18n-attr="aria-label:hud.intro;title:hud.intro"><svg><use href="#i-replay"/></svg></button>
@@ -278,6 +279,7 @@
       <button type="button" role="tab" data-sp="forbidden" aria-selected="false" class="is-forbid"><span data-i18n="w.spell.forbidden">금지 주문</span></button>
     </div>
     <div class="spells" id="spellGrid"></div>
+    <p class="spells__more"><button class="btn-ghost" type="button" data-go="practice" data-anchor="p-spell"><svg><use href="#i-wand"/></svg><span data-i18n="cast.toPractice">룬을 그려 직접 시전하기</span> ›</button></p>
 
     <div class="potion reveal">
       <div class="potion__icon" aria-hidden="true">⚗</div>
@@ -486,7 +488,81 @@
 </section>
 
 <!-- ════════════════════════════════════════════
-     IV · 인물
+     IV · 마법 실습 (주문 연습 · 기숙사 점수 · 지팡이 가게 · 입학 통지서)
+     ════════════════════════════════════════════ -->
+<section class="view" id="v-practice" data-view="practice" aria-label="마법 실습" data-i18n-attr="aria-label:nav.practice">
+  <header class="page-head">
+    <p class="eyebrow">THE PRACTICE HALL <span>·</span> STUDENT LIFE</p>
+    <h1 class="page-head__title" data-i18n="pr.title">마법 실습</h1>
+    <p class="page-head__lead" data-i18n="pr.lead">신입생의 하루. 룬을 그려 주문을 익히고, 지팡이를 맞추고, 기숙사에 점수를 보탠다. 기숙사를 배정받았다면 입학 통지서도 도착해 있다.</p>
+  </header>
+
+  <!-- 01 주문 연습 -->
+  <section class="block" id="p-spell">
+    <header class="block__head reveal">
+      <p class="eyebrow">01 <span>·</span> SPELLCRAFT</p>
+      <h2 class="block__title"><span data-i18n="pr.spell.t">주문 연습</span><small>DRAW THE RUNE</small></h2>
+    </header>
+    <div class="craft reveal">
+      <div class="craft__stage" id="craftStage">
+        <div class="craft__sigil" aria-hidden="true"><i></i><i></i><i></i></div>
+        <canvas class="craft__pad" id="craftPad" aria-label="룬을 그리는 곳" data-i18n-attr="aria-label:pr.spell.hint"></canvas>
+        <p class="craft__hint" id="craftHint" data-i18n="pr.spell.hint">원 안에 룬을 그려 보세요</p>
+      </div>
+      <aside class="craft__side">
+        <p class="craft__label" data-i18n="pr.spell.runes">룬 — 그리면 발동</p>
+        <ul class="runes" id="runeList"></ul>
+        <p class="craft__label" data-i18n="cast.elem">비마의 속성</p>
+        <div class="elems" id="elemList" role="radiogroup"></div>
+        <p class="craft__label" data-i18n="pr.spell.war">전시 주문 — 눌러서 시전</p>
+        <div class="warlist" id="warList"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 02 기숙사 점수 -->
+  <section class="block" id="p-points">
+    <header class="block__head reveal">
+      <p class="eyebrow">02 <span>·</span> HOUSE POINTS</p>
+      <h2 class="block__title"><span data-i18n="pr.pts.t">기숙사 점수</span><small>THE HOURGLASSES</small></h2>
+    </header>
+    <p class="block__text reveal" data-i18n="pr.pts.lead">세 기숙사는 1년 내내 점수를 두고 겨룬다. 기숙사를 배정받으면, 당신이 시전한 주문과 받은 통지서도 이 모래시계에 보석으로 쌓인다.</p>
+    <div class="hgs reveal" id="hourglasses"></div>
+    <p class="hgs__mine" id="ptsMine"></p>
+  </section>
+
+  <!-- 03 지팡이 가게 -->
+  <section class="block" id="p-wand">
+    <header class="block__head reveal">
+      <p class="eyebrow">03 <span>·</span> WAND SHOP · RAVENVILLE</p>
+      <h2 class="block__title"><span data-i18n="pr.wand.t">지팡이 가게</span><small>AIDEN WILDE</small></h2>
+    </header>
+    <div class="shop reveal">
+      <div class="shop__intro">
+        <p class="block__text" data-i18n="pr.wand.lead">레이븐빌의 작은 가게. 은퇴한 에이든 와일드가 손님의 손에 맞는 지팡이를 골라 준다. 변신으로도 지팡이만은 바꿀 수 없다는 것이 그의 지론이다.</p>
+        <button class="who-chip" type="button" data-char="aiden"><img src="assets/char/thumb/aiden.jpg" alt=""><span><b data-cname="aiden">에이든 와일드</b><small data-crole="aiden">은퇴한 전 교수 · 지팡이 가게 주인</small></span></button>
+      </div>
+      <div class="shop__floor" id="wandShop"></div>
+    </div>
+  </section>
+
+  <!-- 04 입학 통지서 -->
+  <section class="block" id="p-letter">
+    <header class="block__head reveal">
+      <p class="eyebrow">04 <span>·</span> ACCEPTANCE LETTER</p>
+      <h2 class="block__title"><span data-i18n="pr.letter.t">입학 통지서</span><small>BY OWL, FROM RAVENFORD</small></h2>
+    </header>
+    <div class="post reveal" id="post"></div>
+  </section>
+
+  <div class="next reveal">
+    <p class="eyebrow">NEXT</p>
+    <button class="btn-main" type="button" data-go="characters"><span data-i18n="pr.next">인물 만나러 가기</span><svg><use href="#i-right"/></svg></button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     V · 인물
      ════════════════════════════════════════════ -->
 <section class="view" id="v-characters" data-view="characters" aria-label="인물" data-i18n-attr="aria-label:nav.characters">
   <header class="page-head">
@@ -505,7 +581,7 @@
 </section>
 
 <!-- ════════════════════════════════════════════
-     V · 관계도
+     VI · 관계도
      ════════════════════════════════════════════ -->
 <section class="view" id="v-relations" data-view="relations" aria-label="관계도" data-i18n-attr="aria-label:nav.relations">
   <header class="page-head">
@@ -545,6 +621,10 @@
   <p><b>RAVENFORD</b> · <span data-i18n="intro.sub">— 당신의 신념은, 어느 쪽입니까. —</span></p>
   <p><button type="button" id="replayIntro" data-i18n="foot.intro">인트로 다시 보기</button> · <span data-i18n="foot.search">Ctrl + K 검색</span></p>
 </footer>
+
+<!-- ═════════ 주문 효과 (화면 전체 위에 그림) ═════════ -->
+<canvas class="spellfx" id="spellfx" aria-hidden="true"></canvas>
+<div class="incant" id="incant" aria-live="polite"></div>
 
 <!-- ═════════ 화면 전환 ═════════ -->
 <div class="veil" id="veil" aria-hidden="true">
@@ -664,7 +744,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/data.js?v=20261018-1300"></script>
-<script src="js/main.js?v=20261018-1300"></script>
+<script src="js/data.js?v=20261018-1800"></script>
+<script src="js/main.js?v=20261018-1800"></script>
 </body>
 </html>

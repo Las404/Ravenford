@@ -290,8 +290,8 @@ window.RAVENFORD = {
     },
     {
       id: 'morgan', name: '모건 크로우', en: 'Morgan Crow', group: 'hunter', house: null,
-      role: '마녀 사냥꾼 부관', age: '54', height: '186cm',
-      look: '짧은 검은 머리, 회색 눈, 군인다운 자세, 수호자 시절의 제복을 검게 물들여 입음, 휘장을 뜯어낸 자국',
+      role: '마녀 사냥꾼 부관', age: '54 (외모 20대)', height: '186cm',
+      look: '헝클어진 검은 머리, 보라색 끈으로 묶은 짧은 뒷머리, 앞머리에 반쯤 가려진 회색 눈, 창백한 피부, 버클 달린 높은 깃의 검은 코트, 가슴과 어깨의 은빛 십자 장식, 제인의 도움으로 20대 외모를 유지 중',
       persona: ['과묵함', '규율에 엄격함', '광신에 가까운 충성', '적이라도 실력자에게는 경의를 표함'],
       speech: '딱딱하고 짧은 군인식 말투',
       tics: ['...그렇군.', '명령이다.'],
@@ -328,8 +328,7 @@ window.RAVENFORD = {
 
   /* 카드가 없는 인물 (관계도에만 등장) */
   GHOSTS: {
-    henry: { name: '헨리 패딩스톨', en: 'Henry Paddingstall', role: '전 교장 · 고인', group: 'leader' },
-    luna:  { name: '루나', en: 'Luna', role: '행방 미정', group: 'prof' }
+    henry: { name: '헨리 패딩스톨', en: 'Henry Paddingstall', role: '전 교장 · 고인', group: 'leader' }
   },
 
   /* ════════ 관계 ════════  dir: '<>' 양방향 · '>' a → b · star: 핵심 관계(★) */
@@ -350,7 +349,6 @@ window.RAVENFORD = {
     { a: 'kaiden', b: 'isabella', dir: '<>', label: '지킬 것인가, 단련할 것인가. 부딪히지만 서로를 가장 믿는다.' },
     { a: 'silas', b: 'aiden', dir: '<>', label: '전임자와 후임자. 순찰 랜턴을 물려받았다.' },
     { a: 'finn', b: 'rosel', dir: '<>', label: '소꿉친구. 불도마뱀 \'퐁퐁\'의 이름은 핀이 지었다.' },
-    { a: 'jasmine', b: 'luna', dir: '<>', label: '소꿉친구. 약재 상자 속의 그림.' },
     { a: 'isabella', b: 'damian', dir: '<>', label: '블랙우드 3대. 지키는 자, 이용하는 자, 거부하는 자.' },
     { a: 'damian', b: 'lucian', dir: '<>', label: '블랙우드 3대. 지키는 자, 이용하는 자, 거부하는 자.' },
     { a: 'hannah', b: 'leah', dir: '>', label: '스승과 제자. 물려준 사감장 배지.' },
