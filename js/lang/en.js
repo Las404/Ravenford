@@ -425,15 +425,15 @@ window.RAVENFORD_L10N = {
     },
 
     places: {
-      hall: { name: `Hall of the Founders`, d: `The great hall where meals and events are held.` },
-      archive: { name: `Ravenford Archive`, d: `The library.` },
-      stacks: { name: `The Founders' Stacks`, d: `A hidden room where forbidden magical knowledge is kept. Very few know it exists.` },
-      commons: { name: `Common Rooms and Dormitories`, d: `Brevalin, Clamis, Curringlindt. Each of the three houses has its own common room and dormitory.` },
-      passage: { name: `The Passage Gate`, d: `A hidden portal leading to the BliP world. Currently guarded by Guardians at all times.` },
-      forest: { name: `The Veiled Forest`, d: `Off-limits to students. A mountain where a black river flows, full of magical creatures and danger.` },
-      ravenville: { name: `Ravenville`, d: `A small village beside Ravenford, with many shops and a train station. Home to the retired Aiden Wilde's wand shop.` },
-      talesburn: { name: `Talesburn`, d: `The densely populated capital of the wizarding world, one hour from Ravenville by train. Guardian Headquarters is here.` },
-      fall: { name: `The Fall`, d: `The wizard prison. Witch Hunters captured during the war are held here.` }
+      hall: { name: `Hall of the Founders`, tags: [`Meals`, `Sorting · Entrance`, `School events`], d: `The great hall at the heart of Ravenford castle. The whole school gathers here for meals, and every school event, large or small, is held here. Each year on March 3, it is where new students stand before the Seeing Crystal at the Sorting and Entrance Ceremony.` },
+      archive: { name: `Ravenford Archive`, tags: [`Library`, `Self-study`, `Ancient books`], d: `Ravenford's library. It holds everything from class texts to the oldest records of the wizarding world, making it the favorite spot for self-study in free periods. Spells can be learned from ancient books as well as in class, so students hunting for new spells are always coming and going.` },
+      stacks: { name: `The Founders' Stacks`, tags: [`Secret`, `Forbidden knowledge`], d: `A hidden room where forbidden magical knowledge is kept. Very few know it exists, and only two know where it is: Headmaster Kaiden Bolt and the retired Aiden Wilde. That is exactly why Jane Calvins, leader of the Witch Hunters, is after them.` },
+      commons: { name: `Common Rooms and Dormitories`, tags: [`Dorm life`, `Curfew 10 PM`], d: `Brevalin, Clamis, Curringlindt. Each of the three houses has its own common room and dormitory. Students live here for three years and must be back in their own house before the 10 PM curfew. In each house, a third-year Head of House looks after student life.` },
+      passage: { name: `The Passage Gate`, tags: [`Portal`, `Guardian watch`, `Leave permit`], d: `A hidden portal leading to the BliP world. Since the school went on a war footing, Guardians have watched it at all times. To pass through to the BliP world, a student needs a leave permit issued by Silas Thorn, professor of discipline and security.` },
+      forest: { name: `The Veiled Forest`, tags: [`Off-limits`, `Black river`, `Magical creatures`], d: `Off-limits to students. A mountain where a black river flows, full of magical creatures and danger. Even so, rumors never stop among the students about lights seen deep in the woods at night.` },
+      ravenville: { name: `Ravenville`, tags: [`Village`, `Shops`, `Train station`], d: `A small village beside Ravenford, with many shops and a train station for the capital. The retired Aiden Wilde runs a small wand shop here.` },
+      talesburn: { name: `Talesburn`, tags: [`Capital`, `Guardian HQ`], d: `The densely populated capital of the wizarding world, one hour from Ravenville by train. It is home to the headquarters of the Guardians, the standing army that fights the Witch Hunters.` },
+      fall: { name: `The Fall`, tags: [`Wizard prison`], d: `The wizard prison. Witch Hunters captured during the war are held here. Wizards who seriously break the Five Commandments can be imprisoned here as well, even students.` }
     },
 
     events: {

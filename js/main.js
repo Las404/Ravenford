@@ -116,7 +116,7 @@
     if (LD.commandments) D.COMMANDMENTS = LD.commandments;
     Object.entries(LD.spells || {}).forEach(([k, list]) => list.forEach((s, i) => merge(D.SPELLS[k][i] || {}, s, ['n', 'k', 'opt', 'd'])));
     D.SUBJECTS.forEach(s => merge(s, (LD.subjects || {})[s.id], ['name', 'd']));
-    D.PLACES.forEach(p => merge(p, (LD.places || {})[p.id], ['name', 'd']));
+    D.PLACES.forEach(p => merge(p, (LD.places || {})[p.id], ['name', 'd', 'tags']));
     D.EVENTS.forEach(e => merge(e, (LD.events || {})[e.id], ['name', 'd']));
     (LD.quiz || []).forEach((q, i) => { if (D.QUIZ[i] && q) { if (q.q) D.QUIZ[i].q = q.q; if (q.a) Object.assign(D.QUIZ[i].a, q.a); } });
     if (LD.ticker) D.TICKER = LD.ticker;
@@ -230,9 +230,10 @@
     clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('is-on'), 2600);
   }
 
-  addEventListener('scroll', () => {
-    document.documentElement.style.setProperty('--dim', clamp(scrollY / (innerHeight * 1.1), 0, 1).toFixed(3));
-  }, { passive: true });
+  /* 스크롤할수록 배경 성을 어둡게 (글 읽기 편하게). 새로고침으로 중간에서 열려도 바로 맞춤 */
+  const setDim = () => document.documentElement.style.setProperty('--dim', clamp(scrollY / (innerHeight * .9), 0, 1).toFixed(3));
+  addEventListener('scroll', setDim, { passive: true });
+  setDim();
 
   /* ════════════════════ 리빌 (스크롤 등장) ════════════════════ */
   const io = new IntersectionObserver(es => {
@@ -292,32 +293,40 @@
     if (opts.instant) { show(view, !opts.pop, opts.anchor); if (opts.after) opts.after(); return; }
     busy = true;
     try {
+      /* 화면을 덮지 않는다: 지금 쪽은 살짝 흐려지고, 위에 작은 책갈피만 내려왔다 올라간다 */
       const v = $('#veil');
       const key = LABEL[view];
+      const leaving = current && $('#v-' + current);
       $('#veilTitle').textContent = UI[key] || NAV_KO[key];
+      clearTimeout(go.veilT);
       v.classList.add('is-on');
-      await sleep(REDUCE ? 40 : 520);
+      if (leaving) leaving.classList.add('is-leaving');
+      await sleep(REDUCE ? 20 : 230);
+      if (leaving) leaving.classList.remove('is-leaving');
       show(view, !opts.pop, opts.anchor);
       if (opts.after) opts.after();
-      await sleep(REDUCE ? 40 : 220);
-      v.classList.remove('is-on');
+      clearTimeout(go.veilT);
+      go.veilT = setTimeout(() => v.classList.remove('is-on'), REDUCE ? 40 : 650);
     } finally { busy = false; }
   }
   addEventListener('popstate', () => go(location.hash.slice(1) || 'world', { pop: true }));
 
   /* ════════════════════ 인트로 (이야기) ════════════════════
-     시작 화면 → 장 제목 → 지문/대사 (누르면 다음) → 타이틀.
+     시작 화면 → 지문/대사가 끊김 없이 이어짐 (자동 진행, 누르면 바로 다음) → 타이틀.
+     장이 바뀌면 왼쪽 위 구석의 시대 표시만 조용히 바뀐다.
      BGM 은 기본으로 꺼져 있고, 시작 화면에서 켤 수 있다 */
   const Intro = (() => {
     const el = $('#intro'), slides = $('#introSlides'), box = $('#introBox'), txt = $('#introText'), who = $('#introWho');
     const chap = $('#introChapter'), prog = $('#introProg');
     const beats = D.INTRO;
-    let i = -1, phase = 'off', typing = false, full = '', typeT = null, autoOn = false, autoT = null, chapT = null, done = false, bgmByIntro = false;
+    let i = -1, phase = 'off', typing = false, full = '', typeT = null, autoOn = true, autoT = null, chapT = null, done = false, bgmByIntro = false;
 
+    /* 그림은 잘리지 않게 전체를 보여 주고(앞), 남는 여백은 같은 그림을 흐리게 깔아 채운다(뒤) */
     function setSlide(src, tint) {
       const s = document.createElement('div');
       s.className = 'intro__slide';
-      s.style.backgroundImage = `url('assets/${src}.jpg')`;
+      const url = `url('assets/${src}.jpg')`;
+      s.innerHTML = `<i class="intro__fill" style="background-image:${url}"></i><i class="intro__pic" style="background-image:${url}"></i>`;
       slides.appendChild(s);
       void s.offsetWidth;
       s.classList.add('is-on');
@@ -329,7 +338,7 @@
     function scheduleAuto() {
       clearTimeout(autoT);
       if (!autoOn || phase !== 'beat') return;
-      autoT = setTimeout(next, 1700 + [...full].length * 42);
+      autoT = setTimeout(next, 2200 + [...full].length * 55);
     }
     function type(s) {
       full = s; typing = true; txt.textContent = '';
@@ -346,23 +355,16 @@
     }
     function finishType() { clearTimeout(typeT); txt.textContent = full; typing = false; box.classList.add('is-done'); scheduleAuto(); }
 
-    function showChapter(b) {
-      phase = 'chapter';
-      box.classList.remove('is-on');
-      $('#chNo').textContent = b.ch.no;
-      $('#chEra').textContent = b.ch.era;
-      $('#chTitle').textContent = b.ch.title;
+    /* 장이 바뀌면 구석의 시대 표시만 바꾼다 (화면을 멈추지 않음) */
+    function setEra(ch) {
+      $('#chNo').textContent = ch.no;
+      $('#chEra').textContent = ch.era;
+      $('#chTitle').textContent = ch.title;
       chap.classList.remove('is-on'); void chap.offsetWidth; chap.classList.add('is-on');
-      setSlide(b.img, b.tint);
-      el.classList.add('is-chapter');
-      chapT = setTimeout(() => { if (phase === 'chapter') showText(); }, REDUCE ? 900 : 2600);
     }
     function showText() {
-      clearTimeout(chapT);
       const b = beats[i];
       phase = 'beat';
-      chap.classList.remove('is-on');
-      el.classList.remove('is-chapter');
       box.classList.toggle('is-line', b.kind === 'd');
       who.textContent = b.kind === 'd' ? b.who : '';
       box.classList.remove('is-on'); void box.offsetWidth; box.classList.add('is-on');
@@ -372,7 +374,7 @@
       i = k;
       prog.style.transform = `scaleX(${(k + 1) / (beats.length + 1)})`;
       const b = beats[k];
-      if (b.ch) { showChapter(b); return; }
+      if (b.ch) setEra(b.ch);
       const prev = beats[k - 1];
       if (!prev || prev.img !== b.img || prev.tint !== b.tint) setSlide(b.img, b.tint);
       showText();
@@ -382,13 +384,11 @@
       phase = 'title';
       prog.style.transform = 'scaleX(1)';
       box.classList.remove('is-on'); chap.classList.remove('is-on');
-      el.classList.remove('is-chapter');
       setSlide('bg/castle', '');
       el.classList.add('is-title');
     }
     function next() {
       if (phase === 'start') { begin(); return; }
-      if (phase === 'chapter') { showText(); return; }
       if (phase !== 'beat') return;
       if (typing) { finishType(); return; }
       clearTimeout(autoT);
@@ -419,14 +419,14 @@
       setTimeout(() => { el.hidden = true; el.className = 'intro'; slides.innerHTML = ''; }, 1300);
     }
     function play() {
-      done = false; i = -1; autoOn = false;
+      done = false; i = -1; autoOn = true;
       clearTimers();
       el.hidden = false;
       el.className = 'intro is-start';
       el.dataset.tint = '';
       slides.innerHTML = '';
       box.classList.remove('is-on'); chap.classList.remove('is-on');
-      $('#introAuto').setAttribute('aria-pressed', 'false');
+      $('#introAuto').setAttribute('aria-pressed', 'true');
       prog.style.transform = 'scaleX(0)';
       body.classList.add('is-intro');
       phase = 'start';
@@ -552,12 +552,15 @@
     $('#houseGrid').innerHTML = HOUSE_IDS.map((id, i) => {
       const h = H[id], mem = CHARS.filter(c => c.group === id);
       return `<article class="house reveal" style="--hc:${h.rgb};transition-delay:${i * 90}ms">
-        <div class="house__img" style="background-image:url('assets/place/${id}.jpg')">
-          <img class="house__crest" src="${crest(id)}" alt="${esc(h.name)}">
-        </div>
+        <div class="house__img" style="background-image:url('assets/place/${id}.jpg')"></div>
         <div class="house__body">
-          <span class="house__en">${esc(h.en.toUpperCase())} · ${esc(h.mottoEn)}</span>
-          <h3 class="house__name">${esc(h.name)}</h3>
+          <header class="house__head">
+            <img class="house__crest" src="${crest(id)}" alt="">
+            <div>
+              <span class="house__en">${esc(h.en.toUpperCase())} · ${esc(h.mottoEn)}</span>
+              <h3 class="house__name">${esc(h.name)}</h3>
+            </div>
+          </header>
           <dl class="house__facts">
             <div><dt>${T('house.animal')}</dt><dd>${esc(h.animal)}</dd></div>
             <div><dt>${T('house.color')}</dt><dd><i class="swatch"></i>${esc(h.colorName)}</dd></div>
@@ -590,19 +593,34 @@
     const badge = p => p.id === 'stacks' ? `<span class="place__badge is-secret"><svg><use href="#i-lock"/></svg>${T('pl.secret')}</span>`
       : p.id === 'forest' ? `<span class="place__badge is-danger"><svg><use href="#i-warn"/></svg>${T('pl.forbidden')}</span>`
       : p.id === 'fall' ? `<span class="place__badge is-danger">${T('pl.prison')}</span>` : '';
+    /* 시설은 큰 사진과 설명이 번갈아 놓이는 줄, 지역은 세 칸 카드 (마크업은 같고 CSS 가 나눔) */
     const placeHTML = (p, i) => `
-      <article class="place reveal${p.imgs ? ' place--commons' : ''}" style="transition-delay:${(i % 3) * 70}ms">
-        <div class="place__img">${p.imgs ? p.imgs.map((s, k) => `<span style="background-image:url('assets/${s}.jpg')" data-h="${HOUSE_IDS[k]}"></span>`).join('') : `<span style="background-image:url('assets/${p.img}.jpg')"></span>`}${badge(p)}</div>
+      <article class="place reveal${p.imgs ? ' place--commons' : ''}${p.danger ? ' is-danger' : ''}">
+        <div class="place__img">${p.imgs ? p.imgs.map((s, k) => `<span class="${k ? '' : 'is-on'}" style="background-image:url('assets/${s}.jpg')" data-h="${HOUSE_IDS[k]}"></span>`).join('') + `<b class="place__dots">${p.imgs.map((_, k) => `<i class="${k ? '' : 'is-on'}"></i>`).join('')}</b>` :`<span style="background-image:url('assets/${p.img}.jpg')"></span>`}${badge(p)}</div>
         <div class="place__body">
+          <span class="place__no">${String(i + 1).padStart(2, '0')}</span>
           <span class="place__en">${esc(p.en)}</span>
           <h3>${esc(p.name)}</h3>
           <p>${esc(p.d)}</p>
+          ${p.tags ? `<ul class="place__tags">${p.tags.map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+          ${p.people ? `<div class="place__people">${p.people.filter(id => byId[id]).map(id => `<button class="who-chip" type="button" data-char="${id}"><img src="${thumb(id)}" alt=""><span><b>${esc(byId[id].name)}</b><small>${esc(byId[id].role)}</small></span></button>`).join('')}</div>` : ''}
           ${p.imgs ? `<div class="place__plays">${HOUSE_IDS.map(h => `<button type="button" class="hplay" data-play="h-${h}" style="--hc:${H[h].rgb}"><img src="${crest(h)}" alt=""><span>${esc(H[h].name)}</span><svg><use href="#i-music"/></svg></button>`).join('')}</div>` : ''}
-          ${p.play ? playBtn(p.play) : ''}
+          ${p.play ? `<div class="place__plays">${playBtn(p.play)}</div>` : ''}
         </div>
       </article>`;
     $('#facilities').innerHTML = D.PLACES.filter(p => p.kind === 'facility').map(placeHTML).join('');
     $('#regions').innerHTML = D.PLACES.filter(p => p.kind === 'region').map(placeHTML).join('');
+
+    /* 휴게실 그림: 몇 초마다 다음 기숙사로, 기숙사 버튼에 올리면 그 그림으로 */
+    const commons = $('.place--commons');
+    if (commons) {
+      const pics = $$('.place__img > span[data-h]', commons), dots = $$('.place__dots i', commons);
+      let k = 0;
+      const pick = n => { k = n; pics.forEach((p, j) => p.classList.toggle('is-on', j === n)); dots.forEach((d, j) => d.classList.toggle('is-on', j === n)); };
+      clearInterval(renderSchool.commonsT);
+      renderSchool.commonsT = setInterval(() => { if (!commons.matches(':hover')) pick((k + 1) % pics.length); }, 3600);
+      $$('.hplay', commons).forEach((b, j) => { b.addEventListener('pointerenter', () => pick(j)); b.addEventListener('focus', () => pick(j)); });
+    }
 
     /* 행사 */
     $('#events').innerHTML = D.EVENTS.map((e, i) => `
@@ -891,8 +909,10 @@
       const houseCell = c.house ? `${houseChip(c.house)}` : T('cm.none');
       return `
         <div class="cm__portrait">
-          <img src="${full(c.id)}" alt="${esc(T('cm.alt', { name: c.name }))}">
-          <span class="cm__flabel">${sigOf(c)}${esc(c.house && isStudent ? H[c.house].name : g.name)}</span>
+          <div class="cm__frame"><div class="cm__pic">
+            <img src="${full(c.id)}" alt="${esc(T('cm.alt', { name: c.name }))}">
+            <span class="cm__flabel">${sigOf(c)}${esc(c.house && isStudent ? H[c.house].name : g.name)}</span>
+          </div></div>
           <span class="cm__wm">${esc(c.en.split(' ')[0].toUpperCase())}</span>
         </div>
         <div class="cm__content">
@@ -988,7 +1008,7 @@
       svg.setAttribute('viewBox', `0 0 ${W} ${H2}`);
       const defs = mk('defs');
       defs.innerHTML = `<clipPath id="nclip"><circle r="21"/></clipPath>
-        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="rgba(70,45,22,.55)"/></marker>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="rgba(236,231,223,.4)"/></marker>
         <marker id="arrHi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--accent)"/></marker>`;
       svg.appendChild(defs);
       const gE = mk('g'), gL = mk('g'), gN = mk('g');
@@ -1000,8 +1020,8 @@
         const [ax, ay] = anchorOf(n);
         n.x = ax * W + (Math.random() - .5) * 120; n.y = ay * H2 + (Math.random() - .5) * 120; n.vx = 0; n.vy = 0;
         const g = mk('g', { class: 'r-node' + (n.ghost ? ' is-ghost' : ''), 'data-id': n.id, tabindex: '0' });
-        const rgb = n.ghost ? '110,84,58' : accOf(n.c);
-        g.appendChild(mk('circle', { r: n.r, fill: n.ghost ? '#efe3c6' : '#2a1f16' }));
+        const rgb = n.ghost ? '176,168,156' : accOf(n.c);
+        g.appendChild(mk('circle', { r: n.r, fill: n.ghost ? '#22252e' : '#15171d' }));
         if (n.ghost) {
           const u = mk('use', { href: '#sig-ghost', x: -13, y: -13, width: 26, height: 26 });
           u.style.color = `rgb(${rgb})`; g.appendChild(u);
@@ -1366,17 +1386,32 @@
         if (k > 0) { order.splice(k, 1); order.unshift(cur); }
       }
     }
-    function step(d, auto) {
+    /* 다음(이전) 곡 id. 셔플 한 바퀴가 끝나면 여기서 순서를 새로 섞어 두므로,
+       미리 받아 둔 곡과 실제로 넘어가는 곡이 항상 같다. 반복 끔 + 마지막 곡이면 null */
+    function peek(d, auto) {
       if (!order.length) setBase(tracks);
       let i = order.indexOf(cur);
       if (i < 0) i = 0;
       let n = i + d;
       if (n >= order.length) {
-        if (auto && repeat === 'off') { audio.pause(); audio.currentTime = 0; return; }
+        if (auto && repeat === 'off') return null;
         if (shuffle) { buildOrder(); n = order[0] === cur && order.length > 1 ? 1 : 0; } else n = 0;
       }
       if (n < 0) n = order.length - 1;
-      play(order[n]);
+      return order[n];
+    }
+    function step(d, auto) {
+      const id = peek(d, auto);
+      if (id == null) { audio.pause(); audio.currentTime = 0; return; }
+      play(id);
+    }
+    /* 다음 곡을 미리 받아 브라우저 캐시에 넣어 둔다 → 곡이 바뀔 때 내려받느라 생기는 공백이 없음 */
+    let warmedFor = null;
+    function warmNext() {
+      if (warmedFor === cur) return;
+      warmedFor = cur;
+      const id = peek(1, true);
+      if (id && id !== cur) fetch(`assets/audio/${id}.mp3`).catch(() => {});
     }
 
     /* ── 재생 ── */
@@ -1718,10 +1753,12 @@
       }
       /* 연속 재생: 곡이 완전히 끝나 '정지' 상태가 되기 직전에 다음 곡으로 넘긴다.
          모바일은 화면이 꺼진 뒤 한 번 멈춘 오디오를 다시 켜지 못하게 막는 경우가 있어서,
-         재생이 끊기지 않은 채로 곡을 바꿔야 백그라운드에서도 이어진다 */
-      if (!advancing && repeat !== 'one' && !audio.paused && audio.duration && audio.duration - audio.currentTime < .3) {
-        advancing = true;
-        step(1, true);
+         재생이 끊기지 않은 채로 곡을 바꿔야 백그라운드에서도 이어진다.
+         화면이 꺼지면 이 신호가 드문드문 와서 0.3초 창을 놓칠 수 있으니, 그때는 1.2초 앞에서 넘긴다 */
+      const left = audio.duration - audio.currentTime;
+      if (repeat !== 'one' && !audio.paused && audio.duration) {
+        if (left < 30) warmNext();
+        if (!advancing && left < (document.hidden ? 1.2 : .3)) { advancing = true; step(1, true); }
       }
     });
     audio.addEventListener('ended', () => { if (repeat === 'one') { audio.currentTime = 0; play(); } else if (!advancing) { advancing = true; step(1, true); } });

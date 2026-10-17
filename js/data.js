@@ -449,15 +449,33 @@ window.RAVENFORD = {
 
   /* ════════ 장소 ════════  kind: facility 시설 / region 지역 */
   PLACES: [
-    { id: 'hall', kind: 'facility', name: '창립자의 홀', en: 'HALL OF THE FOUNDERS', img: 'place/hall', play: 'p-hall', d: '식사와 행사가 열리는 대강당.' },
-    { id: 'archive', kind: 'facility', name: '레이븐포드 기록관', en: 'RAVENFORD ARCHIVE', img: 'place/archive', play: 'p-archive', d: '도서관.' },
-    { id: 'stacks', kind: 'facility', name: '창립자의 서고', en: 'THE FOUNDERS\' STACKS', img: 'place/stacks', play: 'p-stacks', secret: true, d: '금지된 마법 지식이 보관된 숨겨진 방. 그 존재를 아는 사람은 극소수다.' },
-    { id: 'commons', kind: 'facility', name: '기숙사 휴게실과 숙소', en: 'COMMON ROOMS', imgs: ['place/brevalin', 'place/clamis', 'place/curringlindt'], d: '브레벌린, 클라미스, 커링린트. 세 기숙사가 각자의 휴게실과 숙소를 쓴다.' },
-    { id: 'passage', kind: 'facility', name: '통행의 문', en: 'THE PASSAGE GATE', img: 'place/passage', d: '블립 세계로 이어지는 숨겨진 포탈. 현재 수호자가 상시 경비한다.' },
-    { id: 'forest', kind: 'facility', name: '장막의 숲', en: 'THE VEILED FOREST', img: 'place/forest', play: 'p-forest', danger: true, d: '학생 출입 금지 구역. 검은 강이 흐르는 산으로, 마법 생물과 위험이 가득하다.' },
-    { id: 'ravenville', kind: 'region', name: '레이븐빌', en: 'RAVENVILLE', img: 'place/ravenville', play: 'p-ravenville', d: '레이븐포드 옆의 작은 마을. 상점이 많고 기차역이 있다. 은퇴한 에이든 와일드의 지팡이 가게가 있다.' },
-    { id: 'talesburn', kind: 'region', name: '테일즈번', en: 'TALESBURN', img: 'place/talesburn', play: 'p-talesburn', d: '마법사 세계의 인구 밀집 수도. 레이븐빌에서 기차로 1시간 거리. 수호자 본부가 있다.' },
-    { id: 'fall', kind: 'region', name: '폴 (The Fall)', en: 'THE FALL', img: 'place/fall', play: 'p-fall', danger: true, d: '마법사 감옥. 전쟁 때 붙잡힌 마녀 사냥꾼들이 수감되어 있다.' }
+    { id: 'hall', kind: 'facility', name: '창립자의 홀', en: 'HALL OF THE FOUNDERS', img: 'place/hall', play: 'p-hall',
+      tags: ['식사', '배정식 · 입학식', '학교 행사'],
+      d: '레이븐포드 성의 중심에 있는 대강당. 전교생이 이곳에 모여 식사를 하고, 학교의 크고 작은 행사도 모두 이곳에서 열린다. 해마다 3월 3일, 신입생들이 천리안 수정 앞에서 기숙사를 배정받는 배정식과 입학식이 치러지는 자리이기도 하다.' },
+    { id: 'archive', kind: 'facility', name: '레이븐포드 기록관', en: 'RAVENFORD ARCHIVE', img: 'place/archive', play: 'p-archive',
+      tags: ['도서관', '자습', '고대 서적'],
+      d: '레이븐포드의 도서관. 수업에 쓰는 책부터 마법사 세계의 오래된 기록까지 보관되어 있어, 빈 시간에 자습하는 학생들이 가장 많이 찾는 곳이다. 주문은 수업뿐 아니라 고대 서적으로도 익힐 수 있어서, 새로운 주문을 찾는 학생들의 발길이 끊이지 않는다.' },
+    { id: 'stacks', kind: 'facility', name: '창립자의 서고', en: 'THE FOUNDERS\' STACKS', img: 'place/stacks', play: 'p-stacks', secret: true,
+      tags: ['비밀', '금지된 지식'], people: ['kaiden', 'aiden'],
+      d: '금지된 마법 지식이 보관된 숨겨진 방. 그 존재를 아는 사람은 극소수이며, 위치까지 아는 사람은 교장 카이든 볼트와 은퇴한 에이든 와일드, 단 두 명뿐이다. 마녀 사냥꾼의 수장 제인 칼빈스가 두 사람을 노리는 이유이기도 하다.' },
+    { id: 'commons', kind: 'facility', name: '기숙사 휴게실과 숙소', en: 'COMMON ROOMS', imgs: ['place/brevalin', 'place/clamis', 'place/curringlindt'],
+      tags: ['기숙사 생활', '통금 밤 10시'], people: ['leah', 'elodie', 'vivian'],
+      d: '브레벌린, 클라미스, 커링린트. 세 기숙사가 각자의 휴게실과 숙소를 쓴다. 학생들은 3년 동안 이곳에서 생활하며, 밤 10시 통금 전에는 모두 자기 기숙사로 돌아와야 한다. 기숙사마다 3학년 사감장이 학생들의 생활을 이끈다.' },
+    { id: 'passage', kind: 'facility', name: '통행의 문', en: 'THE PASSAGE GATE', img: 'place/passage',
+      tags: ['포탈', '수호자 경비', '외출 허가증'], people: ['silas'],
+      d: '블립 세계로 이어지는 숨겨진 포탈. 전시 체제가 된 뒤로 수호자가 상시 경비한다. 학생이 이 문을 지나 블립 세계로 나가려면, 징계 및 경비 담당 교수 사일라스 토른이 발급하는 외출 허가증이 있어야 한다.' },
+    { id: 'forest', kind: 'facility', name: '장막의 숲', en: 'THE VEILED FOREST', img: 'place/forest', play: 'p-forest', danger: true,
+      tags: ['출입 금지', '검은 강', '마법 생물'],
+      d: '학생 출입 금지 구역. 검은 강이 흐르는 산으로, 마법 생물과 위험이 가득하다. 그런데도 밤마다 숲속에서 빛이 보인다는 소문이 학생들 사이에 끊이지 않는다.' },
+    { id: 'ravenville', kind: 'region', name: '레이븐빌', en: 'RAVENVILLE', img: 'place/ravenville', play: 'p-ravenville',
+      tags: ['마을', '상점가', '기차역'], people: ['aiden'],
+      d: '레이븐포드 옆의 작은 마을. 상점이 많고, 수도로 가는 기차역이 있다. 은퇴한 에이든 와일드가 이곳에서 작은 지팡이 가게를 운영한다.' },
+    { id: 'talesburn', kind: 'region', name: '테일즈번', en: 'TALESBURN', img: 'place/talesburn', play: 'p-talesburn',
+      tags: ['수도', '수호자 본부'],
+      d: '마법사 세계의 인구 밀집 수도. 레이븐빌에서 기차로 1시간 거리다. 마녀 사냥꾼과 맞서는 정규군, 수호자의 본부가 이곳에 있다.' },
+    { id: 'fall', kind: 'region', name: '폴 (The Fall)', en: 'THE FALL', img: 'place/fall', play: 'p-fall', danger: true,
+      tags: ['마법사 감옥'],
+      d: '마법사 감옥. 전쟁 때 붙잡힌 마녀 사냥꾼들이 수감되어 있다. 마법 5계명을 심각하게 어긴 마법사 역시, 학생이라 해도 이곳에 수감될 수 있다.' }
   ],
 
   /* ════════ 연간 행사 ════════ */
