@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RAVENFORD — 레이븐포드 마법학교</title>
+<meta name="description" content="평범한 인간들 몰래, 마법사는 언제나 존재해 왔다. 마녀 사냥꾼의 습격이 다시 시작된 지금, 레이븐포드에 다섯 번째 선구자가 입학한다.">
+<meta name="theme-color" content="#0b0a10">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%230b0a10'/%3E%3Cpath d='M10 30c6-1 9-6 14-6 4 0 6 2 8 4l6 1-5 3c-1 4-5 7-10 7' fill='none' stroke='%23d8b26a' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='29' cy='27' r='1.5' fill='%23d8b26a'/%3E%3Cpath d='M24 6v8M20 10h8' stroke='%23d8b26a' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+KR:wght@500;700;900&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<!-- 버전 번호(?v=)를 바꾸면 브라우저가 예전 파일 대신 새 파일을 받는다. 수정할 때마다 함께 올린다 -->
+<link rel="stylesheet" href="css/style.css?v=20261017-1700">
+<script>
+/* 언어 고르기: 주소의 ?lang= → 저장된 선택 → 브라우저 언어 순서. 한국어가 아니면 번역 파일을 먼저 읽는다 */
+(function () {
+  var d = document.documentElement, ok = { ko: 1, en: 1, ja: 1, zh: 1 }, L = 'ko';
+  d.className = 'js';
+  try {
+    var q = new URLSearchParams(location.search).get('lang'), s = localStorage.getItem('ravenford.lang');
+    if (q && ok[q]) { L = q; localStorage.setItem('ravenford.lang', q); }
+    else if (s && ok[s]) L = s;
+    else {
+      var n = navigator.languages || [navigator.language || 'ko'];
+      L = 'en';
+      for (var i = 0; i < n.length; i++) { var x = String(n[i]).toLowerCase().slice(0, 2); if (ok[x]) { L = x; break; } }
+    }
+  } catch (e) {}
+  window.RAVENFORD_LANG = L;
+  d.lang = L === 'zh' ? 'zh-Hant' : L;
+  d.setAttribute('data-lang', L);
+  if (L !== 'ko') {
+    var f = { ja: 'Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900', zh: 'Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700;900' }[L];
+    if (f) document.write('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=' + f + '&display=swap">');
+    document.write('<script src="js/lang/' + L + '.js?v=20261017-1700"><\/script>');
+  }
+})();
+</script>
+</head>
+<body data-view="intro" class="is-intro">
+
+<!-- ═════════ SVG 정의: 문장 · 아이콘 ═════════ -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <!-- 묶음 문장 -->
+  <symbol id="sig-raven" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M5 27c7-1 10-7 17-7 5 0 8 3 10 6l9 2-7 3c-1 6-7 10-14 10l-3 5M18 39l-3 4"/><circle cx="31" cy="24.5" r="1.4" fill="currentColor"/><path d="M5 27c5 3 10 4 15 2"/></g></symbol>
+  <symbol id="sig-leader" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9 34 6 14l10 8 8-12 8 12 10-8-3 20Z"/><path d="M9 39h30"/><circle cx="24" cy="27" r="3"/></g></symbol>
+  <symbol id="sig-prof" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M24 13c-5-3-11-4-18-3v26c7-1 13 0 18 3 5-3 11-4 18-3V10c-7-1-13 0-18 3Z"/><path d="M24 13v26"/><path d="M33 6v12l3-2 3 2V7" /></g></symbol>
+  <symbol id="sig-brevalin" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M24 4c3 6 9 8 9 15a9 9 0 0 1-18 0c0-4 2-6 3-9 2 2 2 4 3 5 1-4 0-7 3-11Z"/><path d="M19 30h10l-2 14h-6Z"/></g></symbol>
+  <symbol id="sig-clamis" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M27 12c-3-6 4-9 7-5 2 3-1 5-4 8-4 5-1 10 4 12"/><path d="M34 6l4-1"/><path d="M8 28c6 4 16 6 26-1 0 7-6 12-14 12-6 0-10-4-12-11Z"/><path d="M6 42c6-2 12 2 18 0s12 2 18 0"/></g></symbol>
+  <symbol id="sig-curringlindt" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M24 16c-6-8-14-9-20-8 4 3 6 7 7 12 4 0 9 1 13 4 4-3 9-4 13-4 1-5 3-9 7-12-6-1-14 0-20 8Z"/><path d="M20 24l4 18 4-18"/><circle cx="24" cy="15" r="2.5"/></g></symbol>
+  <symbol id="sig-hunter" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 38 21 27"/><path d="M27 21 38 10"/><path d="M21 27l3-1-1 3M27 21l-3 1 1-3"/><circle cx="38" cy="10" r="2"/><path d="M6 42l4-4"/></g></symbol>
+  <symbol id="sig-ghost" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M14 42V22a10 10 0 0 1 20 0v20l-4-3-3 3-3-3-3 3-3-3Z"/><circle cx="20" cy="22" r="1.6" fill="currentColor"/><circle cx="28" cy="22" r="1.6" fill="currentColor"/></g></symbol>
+
+  <!-- 아이콘 -->
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-dice" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.2" fill="currentColor"/><circle cx="15" cy="15" r="1.2" fill="currentColor"/><circle cx="15" cy="9" r="1.2" fill="currentColor"/><circle cx="9" cy="15" r="1.2" fill="currentColor"/></g></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></g></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5Z" fill="currentColor"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></symbol>
+  <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5.5v13L9.5 12Z" fill="currentColor"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5.5v13l9.5-6.5Z" fill="currentColor"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h3.5c2.2 0 3.5 1.2 4.6 3l1.8 3.2c1 1.8 2.4 3.3 4.6 3.3H21"/><path d="M3 17h3.5c1.6 0 2.7-.6 3.6-1.6M13.5 8.6c.9-1 2-1.6 3.6-1.6H21"/><path d="m18 4 3 3-3 3M18 14l3 3-3 3"/></g></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V9a3 3 0 0 1 3-3h13M17 3l3 3-3 3"/><path d="M20 13v2a3 3 0 0 1-3 3H4M7 21l-3-3 3-3"/></g></symbol>
+  <symbol id="i-repeat1" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V9a3 3 0 0 1 3-3h13M17 3l3 3-3 3"/><path d="M20 13v2a3 3 0 0 1-3 3H4M7 21l-3-3 3-3"/></g><text x="12" y="14.6" text-anchor="middle" font-size="7.5" font-weight="700" fill="currentColor" font-family="sans-serif">1</text></symbol>
+  <symbol id="i-vol" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></g></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9Z"/><path d="m17 9 5 6M22 9l-5 6"/></g></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></g></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h11M4 12h11M4 18h7"/><path d="M18 9v9" /><circle cx="16" cy="18" r="2.2"/><path d="M18 9l3-1"/></g></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-replay" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/><path d="M10.5 9.2v5.6l4.4-2.8Z" fill="currentColor" stroke-width="1.2"/></g></symbol>
+  <symbol id="i-wand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 15 9"/><path d="M17 3v3M17 12v3M11 7h3M20 7h3M13.5 4.5l1.5 1.5M20.5 10.5 19 9M20.5 3.5 19 5"/></g></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z" fill="currentColor"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 3 2 20h20Z"/><path d="M12 10v4M12 17v.5"/></g></symbol>
+</svg>
+
+<!-- ═════════ 배경 ═════════ -->
+<div class="stage" aria-hidden="true">
+  <div class="stage__img"></div>
+  <div class="stage__tint"></div>
+  <div class="stage__vignette"></div>
+  <div class="stage__grain"></div>
+</div>
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+
+<!-- ═════════ 인트로 (이야기) ═════════ -->
+<div class="intro" id="intro" role="dialog" aria-label="인트로" data-i18n-attr="aria-label:intro.aria">
+  <div class="intro__slides" id="introSlides" aria-hidden="true"></div>
+  <div class="intro__tint" aria-hidden="true"></div>
+  <div class="intro__bars" aria-hidden="true"><i></i><i></i></div>
+
+  <!-- 시작 화면 -->
+  <div class="intro__start" id="introStart">
+    <svg class="intro__mark" aria-hidden="true"><use href="#sig-raven"/></svg>
+    <p class="intro__kicker">RAVENFORD · ARCHIVE OF THE HIDDEN WORLD</p>
+    <button class="intro__begin" id="introBegin" type="button"><span data-i18n="intro.begin">이야기 시작</span><i></i></button>
+    <div class="intro__opts">
+      <button class="intro__opt" id="introBgm" type="button" aria-pressed="false"><svg><use href="#i-music"/></svg><span data-i18n="intro.bgm">BGM 켜기</span></button>
+      <button class="intro__opt" id="introJump" type="button"><span data-i18n="intro.jump">인트로 건너뛰기</span> ›</button>
+    </div>
+    <p class="intro__hint" data-i18n="intro.hint">화면을 누르면 다음 장면으로 넘어갑니다</p>
+  </div>
+
+  <!-- 장 제목 -->
+  <div class="intro__chapter" id="introChapter" aria-live="polite">
+    <span class="intro__ch-no" id="chNo">00</span>
+    <span class="intro__ch-era" id="chEra"></span>
+    <b class="intro__ch-title" id="chTitle"></b>
+  </div>
+
+  <!-- 지문 · 대사 -->
+  <div class="intro__box" id="introBox" aria-live="polite">
+    <span class="intro__who" id="introWho"></span>
+    <p class="intro__text" id="introText"></p>
+    <i class="intro__next" aria-hidden="true">▼</i>
+  </div>
+
+  <!-- 타이틀 -->
+  <div class="intro__title" id="introTitle">
+    <p class="intro__eyebrow">THE SCHOOL OF MAGIC</p>
+    <h1 class="intro__logo" aria-label="RAVENFORD"><span>R</span><span>A</span><span>V</span><span>E</span><span>N</span><span>F</span><span>O</span><span>R</span><span>D</span></h1>
+    <p class="intro__sub" data-i18n="intro.sub">— 당신의 신념은, 어느 쪽입니까. —</p>
+    <button class="intro__enter" id="introEnter" type="button"><span data-i18n="intro.enter">입학하기</span><i></i></button>
+  </div>
+
+  <div class="intro__ctrl">
+    <button type="button" id="introAuto" aria-pressed="false">AUTO</button>
+    <button type="button" id="introSkip">SKIP ›</button>
+  </div>
+  <div class="intro__prog" aria-hidden="true"><i id="introProg"></i></div>
+</div>
+
+<!-- ═════════ 책등 메뉴 (PC: 왼쪽 세로 · 모바일: 위쪽 가로) ═════════ -->
+<header class="hud" id="hud">
+  <a class="hud__logo" href="#world" data-go="world" aria-label="처음으로" data-i18n-attr="aria-label:hud.home">
+    <svg class="hud__mark" aria-hidden="true"><use href="#sig-raven"/></svg>
+    <span class="hud__name">RAVENFORD</span>
+  </a>
+  <nav class="hud__nav" id="hudNav" aria-label="주요 메뉴" data-i18n-attr="aria-label:hud.nav">
+    <a href="#world" data-go="world"><b>I</b><span data-i18n="nav.world">세계관</span></a>
+    <a href="#school" data-go="school"><b>II</b><span data-i18n="nav.school">레이븐포드</span></a>
+    <a href="#sorting" data-go="sorting" class="is-orb"><b>III</b><span data-i18n="nav.sorting">기숙사 배정</span></a>
+    <a href="#characters" data-go="characters"><b>IV</b><span data-i18n="nav.characters">인물</span></a>
+    <a href="#relations" data-go="relations"><b>V</b><span data-i18n="nav.relations">관계도</span></a>
+  </nav>
+  <div class="hud__tools">
+    <button class="hud__btn" id="btnIntro" type="button" aria-label="인트로 다시 보기" title="인트로 다시 보기" data-i18n-attr="aria-label:hud.intro;title:hud.intro"><svg><use href="#i-replay"/></svg></button>
+    <div class="lang" id="lang">
+      <button class="hud__btn lang__btn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" aria-label="언어 / Language" title="언어 / Language"><svg><use href="#i-globe"/></svg><b id="langCur">KO</b></button>
+      <div class="lang__menu" id="langMenu" role="menu" aria-label="Language">
+        <button type="button" role="menuitemradio" data-lang="ko" aria-checked="true"><b>KO</b>한국어</button>
+        <button type="button" role="menuitemradio" data-lang="en" aria-checked="false"><b>EN</b>English</button>
+        <button type="button" role="menuitemradio" data-lang="ja" aria-checked="false"><b>JA</b>日本語</button>
+        <button type="button" role="menuitemradio" data-lang="zh" aria-checked="false"><b>繁中</b>繁體中文</button>
+      </div>
+    </div>
+    <button class="hud__btn" id="btnMusic" type="button" data-m="open" aria-label="플레이리스트 모드" title="플레이리스트 모드" data-i18n-attr="aria-label:hud.music;title:hud.music"><svg><use href="#i-music"/></svg></button>
+    <button class="hud__btn" id="btnSearch" type="button" aria-label="인물 검색 (Ctrl+K)" title="검색 (Ctrl+K)" data-i18n-attr="aria-label:hud.search;title:hud.search"><svg><use href="#i-search"/></svg></button>
+    <button class="hud__btn hud__menu" id="btnMenu" type="button" aria-label="메뉴" data-i18n-attr="aria-label:hud.menu"><svg><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<main id="app">
+
+<!-- ════════════════════════════════════════════
+     I · 세계관
+     ════════════════════════════════════════════ -->
+<section class="view" id="v-world" data-view="world" aria-label="세계관" data-i18n-attr="aria-label:nav.world">
+
+  <!-- 히어로 -->
+  <div class="hero">
+   <div class="hero__main">
+    <p class="eyebrow reveal">THE HIDDEN WORLD <span>·</span> RAVENFORD</p>
+    <h1 class="hero__title reveal" data-i18n-html="hero.title">평범한 인간들 몰래,<br>마법사는 <em>언제나</em> 존재해 왔다.</h1>
+    <p class="hero__lead reveal" data-i18n="hero.lead">두 세계는 게이트로만 이어져 있다. 성인이 된 모든 마법사는 외딴 마법 학교 레이븐포드로 소환되어, 3년 동안 피에 잠든 마력을 깨운다. 그리고 올해, 그 문을 블립 세계에서 온 신입생이 지난다.</p>
+    <div class="hero__cta reveal">
+      <button class="btn-main" type="button" data-go="sorting"><svg><use href="#i-wand"/></svg><span data-i18n="hero.sort">기숙사 배정 받기</span></button>
+      <button class="btn-ghost" type="button" data-go="characters"><span data-i18n="hero.chars">인물 보기</span> ›</button>
+    </div>
+    <div class="hero__stats reveal" id="heroStats"></div>
+   </div>
+    <!-- 게시판: 핀으로 꽂아 둔 양피지 쪽지 -->
+    <aside class="notice reveal" aria-labelledby="noticeTitle">
+      <i class="notice__pin" aria-hidden="true"></i>
+      <p class="notice__kicker">RAVENFORD · NOTICE</p>
+      <h2 class="notice__title" id="noticeTitle" data-i18n="ticker.label">게시판</h2>
+      <ul class="notice__list" id="notice"></ul>
+    </aside>
+    <div class="hero__scroll" aria-hidden="true"><span>SCROLL</span><i></i></div>
+  </div>
+
+  <!-- 01 두 개의 세계 -->
+  <section class="block" id="w-worlds">
+    <header class="block__head reveal">
+      <p class="eyebrow">01 <span>·</span> TWO WORLDS</p>
+      <h2 class="block__title"><span data-i18n="w.worlds.t">두 개의 세계</span><small>THE GATE</small></h2>
+    </header>
+    <div class="trio">
+      <article class="lore reveal">
+        <span class="lore__k">BliP</span>
+        <h3 data-i18n="w.blip.t">블립 — 눈먼 자들</h3>
+        <p data-i18n="w.blip.d">마법사들은 마법을 쓰지 못하는 사람들을 '눈먼 자들(Blinded People)'의 줄임말인 '블립(BliP)'이라 부른다.</p>
+      </article>
+      <article class="lore reveal" style="transition-delay:80ms">
+        <span class="lore__k">THE GATE</span>
+        <h3 data-i18n="w.gate.t">게이트</h3>
+        <p data-i18n="w.gate.d">마법사 세계와 블립 세계는 분리되어 있지만, '게이트(The Gate)'라는 포탈로 연결되어 있다. 게이트는 마법사 세계 곳곳에 존재하며, 블립 세계 쪽에서는 마법으로 숨겨져 있다.</p>
+      </article>
+      <article class="lore reveal" style="transition-delay:160ms">
+        <span class="lore__k">RAVENFORD</span>
+        <h3 data-i18n="w.rf.t">레이븐포드로의 소환</h3>
+        <p data-i18n="w.rf.d">모든 마법사는 성인이 되면 마법사 세계의 외딴 마법 학교 '레이븐포드(Ravenford)'로 소환된다. 이곳에서 3년간 기숙사 생활을 하며 피에 잠든 마력을 각성시키고 다루는 법을 배운다.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 02 선구자 -->
+  <section class="block" id="w-pioneer">
+    <header class="block__head reveal">
+      <p class="eyebrow">02 <span>·</span> PIONEERS</p>
+      <h2 class="block__title"><span data-i18n="w.pio.t">선구자</span><small>PIONEER</small></h2>
+    </header>
+    <p class="block__text reveal" data-i18n-html="w.pio.d1">레이븐포드는 오래전 세 명의 전설적인 마법사, <strong>카일 브레벌린</strong>, <strong>엘리자베스 클라미스</strong>, <strong>블레이크 커링린트</strong>가 세웠다. 이들은 마법을 물려받지 않고 스스로 각성한 블립 출신, 즉 <strong>'선구자(Pioneer)'</strong>였다. 네 번째로 알려진 선구자가 바로 마녀 사냥꾼의 수장 <strong>제인 칼빈스</strong>다.</p>
+    <div class="pioneers reveal" id="pioneers"></div>
+    <blockquote class="henry reveal">
+      <p data-i18n="w.pio.quote">“모든 선구자는 강력한 신념에 이끌린다.”</p>
+      <cite data-i18n="w.pio.cite">— 헨리 패딩스톨, 전 교장</cite>
+    </blockquote>
+    <p class="block__text reveal" data-i18n-html="w.pio.d2">선구자는 극히 드물어서, 제인 이후 수십 년간 새로운 선구자는 나타나지 않았다. 그런데 올해, 블립 세계에서 스스로 마력을 각성한 신입생이 레이븐포드에 입학했다. 그가 바로 <strong>다섯 번째 선구자, 당신</strong>이다. 이 소식은 입학과 동시에 학교 전체에 퍼졌고, 학생과 교수들은 저마다 다른 시선으로 당신을 바라본다.</p>
+    <p class="block__text reveal" data-i18n="w.pio.d3">창립자 셋은 레이븐포드를 세웠고, 제인은 마녀 사냥꾼을 이끌었다. 다섯 번째 선구자가 어떤 신념을 품게 될지는 아직 아무도 모른다.</p>
+  </section>
+
+  <!-- 03 지난 20년 -->
+  <section class="block" id="w-history">
+    <header class="block__head reveal">
+      <p class="eyebrow">03 <span>·</span> TWENTY YEARS</p>
+      <h2 class="block__title"><span data-i18n="w.hist.t">지난 20년의 역사</span><small>HISTORY</small></h2>
+    </header>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <!-- 04 마법 체계 -->
+  <section class="block" id="w-magic">
+    <header class="block__head reveal">
+      <p class="eyebrow">04 <span>·</span> MAGIC</p>
+      <h2 class="block__title"><span data-i18n="w.magic.t">마법 체계</span><small>THE ART</small></h2>
+    </header>
+
+    <div class="split">
+      <div class="reveal">
+        <h3 class="mini-title"><span data-i18n="w.cmd.t">마법 5계명</span><small>THE FIVE COMMANDMENTS</small></h3>
+        <ol class="commands" id="commands"></ol>
+      </div>
+      <div class="reveal">
+        <div class="clause">
+          <p class="eyebrow t-war"><svg><use href="#i-warn"/></svg> WARTIME EMERGENCY CLAUSE</p>
+          <h3 data-i18n="w.clause.t">전시 비상 조항</h3>
+          <p data-i18n-html="w.clause.d">전쟁 이후 5계명에 덧붙여진 조항. 마녀 사냥꾼의 습격을 받았을 때에 한해, 1계명의 예외로 <strong>'제압 목적의 공격 마법'</strong> 사용이 허용된다. <strong>학생에게도 적용된다.</strong></p>
+          <ul class="clause__stances" id="clauseStances"></ul>
+          <p class="clause__note" data-i18n="w.clause.note">비상 조항은 현재 학교 안 기숙사 갈등의 가장 큰 불씨다.</p>
+        </div>
+        <div class="casting">
+          <div><b data-i18n="w.cast.k1">시전</b><p data-i18n="w.cast.d1">지팡이를 사용하고 주문을 외친다.</p></div>
+          <div><b data-i18n="w.cast.k2">습득</b><p data-i18n="w.cast.d2">주문을 익히려면 시간과 노력이 필요하며, 효과는 숙련도에 따라 달라진다. 당신은 수업, 고대 서적, 특정 인물을 통해 주문을 배울 수 있다.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub-title reveal"><span class="sub-title__t" data-i18n="w.spell.t">주문</span><span>SPELLS</span></h3>
+    <div class="spelltabs reveal" id="spellTabs" role="tablist">
+      <button type="button" role="tab" data-sp="basic" class="is-on" aria-selected="true"><span data-i18n="w.spell.basic">기본 전투 주문</span></button>
+      <button type="button" role="tab" data-sp="war" aria-selected="false"><span data-i18n="w.spell.war">전시 주문</span><small data-i18n="w.spell.warS">전쟁 중 개발됨</small></button>
+      <button type="button" role="tab" data-sp="forbidden" aria-selected="false" class="is-forbid"><span data-i18n="w.spell.forbidden">금지 주문</span></button>
+    </div>
+    <div class="spells" id="spellGrid"></div>
+
+    <div class="potion reveal">
+      <div class="potion__icon" aria-hidden="true">⚗</div>
+      <div>
+        <h3 data-i18n="w.potion.t">마법약과 마법 생물</h3>
+        <p data-i18n="w.potion.d">판타지 신화와 동화에 나오는 마법약과 생물은 대부분 존재한다. 복잡하거나 금지된 마법약을 만들려면 희귀한 재료가 필요하다. 변신 마법약도 존재하지만, 무단 제조와 사용은 엄격히 금지된다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 마녀 사냥꾼 · 수호자 -->
+  <section class="block" id="w-factions">
+    <header class="block__head reveal">
+      <p class="eyebrow">05 <span>·</span> HUNTERS &amp; GUARDIANS</p>
+      <h2 class="block__title"><span data-i18n="w.fac.t">마녀 사냥꾼과 수호자</span><small>THE WAR</small></h2>
+    </header>
+    <div class="duo">
+      <article class="side side--hunter reveal">
+        <div class="side__img" style="background-image:url('assets/intro/raid.jpg')"><svg class="side__sig"><use href="#sig-hunter"/></svg></div>
+        <div class="side__body">
+          <span class="side__en">WITCH HUNTERS</span>
+          <h3 data-i18n="w.hunt.t">마녀 사냥꾼</h3>
+          <p data-i18n="w.hunt.d">마법을 악으로 규정하고 마법사를 말살하려는 비밀 조직이다. 구성원은 대부분 범죄자 마법사지만, 마법사에게 원한을 품은 블립도 섞여 있다.</p>
+          <h4 data-i18n="w.hunt.w">마녀 사냥꾼의 무기</h4>
+          <ul class="side__list">
+            <li data-i18n="w.hunt.w1">금지 주문과 금지 마법약.</li>
+            <li data-i18n-html="w.hunt.w2"><b>마력 억제 장비</b> — 블립 기술로 만든 장치. 일정 범위 안에서 주문의 위력을 크게 떨어뜨린다. 지팡이와 주문에만 의존하는 마법사에게 치명적이며, 전술학이 생긴 가장 큰 이유다.</li>
+            <li data-i18n-html="w.hunt.w3"><b>상징</b> — 검은 후드 롱코트, 왼쪽 가슴의 '부러진 지팡이' 문장.</li>
+          </ul>
+          <div class="side__foot"><span class="avatars" id="hunterAvatars"></span><button class="btn-ghost" type="button" data-cgroup="hunter"><span data-i18n="w.hunt.go">구성원 보기</span> ›</button></div>
+        </div>
+      </article>
+      <article class="side side--guard reveal" style="transition-delay:90ms">
+        <div class="side__img" style="background-image:url('assets/intro/victory.jpg')"><svg class="side__sig"><use href="#sig-leader"/></svg></div>
+        <div class="side__body">
+          <span class="side__en">GUARDIANS</span>
+          <h3 data-i18n="w.guard.t">수호자</h3>
+          <p data-i18n="w.guard.d">'수호자(Guardian)'는 전투에 특화된 마법사들이다. 과거에는 마법사 세계의 경찰이었으나, 지금은 마녀 사냥꾼에 맞서는 정규군이다.</p>
+          <ul class="side__list">
+            <li data-i18n-html="w.guard.l1"><b>수호자 본부</b> — 수도 테일즈번.</li>
+            <li data-i18n-html="w.guard.l2"><b>전시 경비</b> — 게이트와 통행의 문을 상시 감시한다.</li>
+            <li data-i18n-html="w.guard.l3"><b>수호자 후보생</b> — 레이븐포드의 뛰어난 학생은 후보생으로 선발되어, 졸업 후 수호자로 임관할 수 있다.</li>
+          </ul>
+          <div class="side__foot"><span class="avatars" id="guardAvatars"></span><button class="btn-ghost" type="button" data-go="school" data-anchor="s-cadet"><span data-i18n="w.guard.go">후보생 제도 보기</span> ›</button></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="next reveal">
+    <p class="eyebrow">NEXT</p>
+    <button class="btn-main" type="button" data-go="school"><span data-i18n="w.next">레이븐포드 둘러보기</span><svg><use href="#i-right"/></svg></button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     II · 레이븐포드
+     ════════════════════════════════════════════ -->
+<section class="view" id="v-school" data-view="school" aria-label="레이븐포드" data-i18n-attr="aria-label:nav.school">
+  <div class="hero hero--school">
+    <p class="eyebrow reveal">RAVENFORD <span>·</span> SCHOOL OF MAGIC</p>
+    <h1 class="hero__title reveal" data-i18n-html="s.hero.title">세 명의 선구자가 세운<br><em>외딴 마법 학교</em></h1>
+    <p class="hero__lead reveal" data-i18n="s.hero.lead">3년간의 기숙사 생활, 1년 내내 이어지는 기숙사 점수 경쟁, 그리고 다시 시작된 전쟁. 레이븐포드는 지금 전시 체제다.</p>
+    <div class="tags reveal"><span data-i18n="s.tag1">3년 기숙사 생활</span><span data-i18n="s.tag2">기숙사 점수 경쟁</span><span class="is-war" data-i18n="s.tag3">전시 체제</span></div>
+  </div>
+
+  <!-- 01 기숙사 -->
+  <section class="block" id="s-houses">
+    <header class="block__head reveal">
+      <p class="eyebrow">01 <span>·</span> HOUSES</p>
+      <h2 class="block__title"><span data-i18n="s.houses.t">세 기숙사</span><small>THREE HOUSES</small></h2>
+    </header>
+    <div class="houses" id="houseGrid"></div>
+  </section>
+
+  <!-- 02 교칙 -->
+  <section class="block" id="s-rules">
+    <header class="block__head reveal">
+      <p class="eyebrow">02 <span>·</span> RULES</p>
+      <h2 class="block__title"><span data-i18n="s.rules.t">교칙</span><small>SCHOOL RULES</small></h2>
+    </header>
+    <div class="rules">
+      <article class="rule reveal">
+        <h3><i aria-hidden="true">Ⅰ</i><span data-i18n="s.r1.t">복장</span></h3>
+        <p data-i18n="s.r1.d">학생은 자기 기숙사 색의 로브를 입는다. 교수는 검은색, 교장과 교감은 흰색 로브를 입는다.</p>
+        <div class="robes" aria-hidden="true"><i style="--c:#d4383b"></i><i style="--c:#e8b830"></i><i style="--c:#3f7fe0"></i><i style="--c:#15131a"></i><i style="--c:#ece4d2"></i></div>
+      </article>
+      <article class="rule reveal" style="transition-delay:60ms">
+        <h3><i aria-hidden="true">Ⅱ</i><span data-i18n="s.r2.t">규율</span></h3>
+        <p data-i18n="s.r2.d">마법 5계명과 비상 조항 외에도 일반 교칙을 따라야 한다.</p>
+        <ul class="rule__list"><li data-i18n="s.r2.l1">밤 10시 통금</li><li data-i18n="s.r2.l2">교직원 존중</li><li data-i18n="s.r2.l3">복도에서 마법 사용 금지</li></ul>
+      </article>
+      <article class="rule reveal" style="transition-delay:120ms">
+        <h3><i aria-hidden="true">Ⅲ</i><span data-i18n="s.r3.t">보안</span></h3>
+        <p data-i18n="s.r3.d">전시 체제에 따라 게이트와 통행의 문은 수호자가 상시 감시한다. 학생이 블립 세계로 나가려면 징계 및 경비 담당 교수가 발급하는 외출 허가증이 필요하다.</p>
+      </article>
+      <article class="rule reveal">
+        <h3><i aria-hidden="true">Ⅳ</i><span data-i18n="s.r4.t">기숙사 점수</span></h3>
+        <p data-i18n="s.r4.d">세 기숙사는 1년 내내 점수를 두고 경쟁한다. 연말에 점수가 가장 높은 기숙사는 트로피와 큰 보상을 받고, 소속 학생들의 이름이 명예의 전당에 기록된다. 점수는 우수한 학업 성적이나 학교 행사에서 기숙사를 잘 대표해 얻을 수 있다.</p>
+      </article>
+      <article class="rule rule--war reveal" style="transition-delay:60ms">
+        <h3><i aria-hidden="true">Ⅴ</i><span data-i18n="s.r5.t">처벌</span></h3>
+        <p data-i18n="s.r5.d">교칙을 어기면 벌점을 받고 기숙사 점수가 깎인다. 5계명을 심각하게 어기면 정학, 퇴학, 심지어 마법사 감옥 '폴(The Fall)'에 수감될 수 있다.</p>
+        <ol class="ladder"><li data-i18n="s.r5.l1">벌점 · 점수 감점</li><li data-i18n="s.r5.l2">정학</li><li data-i18n="s.r5.l3">퇴학</li><li class="is-fall" data-i18n="s.r5.l4">폴 수감</li></ol>
+      </article>
+    </div>
+  </section>
+
+  <!-- 03 수호자 후보생 -->
+  <section class="block" id="s-cadet">
+    <header class="block__head reveal">
+      <p class="eyebrow">03 <span>·</span> GUARDIAN CADETS</p>
+      <h2 class="block__title"><span data-i18n="s.cadet.t">수호자 후보생 제도</span><small>CADETS</small></h2>
+    </header>
+    <div class="cadet reveal">
+      <div class="cadet__img" style="background-image:url('assets/intro/kaiden.jpg')"></div>
+      <div class="cadet__body">
+        <p data-i18n="s.cadet.d">전쟁 이후 생긴 제도. 레이븐포드 학생 중 실력이 뛰어난 학생은 수호자 후보생으로 선발되어 정규 수업 외에 별도의 실전 훈련을 받는다. 후보생은 졸업 후 수호자로 임관할 수 있다. 전투마법 교수이자 현역 수호자인 한나 마르텔이 담당한다.</p>
+        <div class="cadet__foot">
+          <button class="who-chip" type="button" data-char="hannah"><img src="assets/char/thumb/hannah.jpg" alt=""><span><b data-cname="hannah">한나 마르텔</b><small data-crole="hannah">전투마법 교수 · 현역 수호자</small></span></button>
+          <button class="btn-ghost play-btn" type="button" data-play="b-cadet"><svg><use href="#i-music"/></svg><span data-mtitle="b-cadet"></span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 일과 · 과목 -->
+  <section class="block" id="s-schedule">
+    <header class="block__head reveal">
+      <p class="eyebrow">04 <span>·</span> SCHEDULE</p>
+      <h2 class="block__title"><span data-i18n="s.sch.t">일과와 과목</span><small>CLASSES</small></h2>
+    </header>
+    <div class="split split--sch">
+      <div class="reveal">
+        <ul class="facts">
+          <li><b data-i18n="s.sch.k1">수업</b><span data-i18n="s.sch.d1">월요일부터 금요일까지 하루 세 교시 (오전 2교시, 오후 1교시)</span></li>
+          <li><b data-i18n="s.sch.k2">수강</b><span data-i18n="s.sch.d2">여섯 과목을 모두 수강해야 하며, 각 과목을 원하는 시간에 주 2회씩 듣는다</span></li>
+          <li><b data-i18n="s.sch.k3">빈 시간</b><span data-i18n="s.sch.d3">자습이나 수호자 후보생 훈련</span></li>
+          <li><b data-i18n="s.sch.k4">주말</b><span data-i18n="s.sch.d4">주말과 공휴일은 자유 시간</span></li>
+        </ul>
+        <div class="subjects" id="subjects"></div>
+      </div>
+      <div class="reveal">
+        <div class="tt">
+          <div class="tt__head"><b data-i18n="s.tt.t">시간표 예시</b><button class="btn-ghost" type="button" id="ttShuffle"><svg><use href="#i-dice"/></svg><span data-i18n="s.tt.again">다시 짜기</span></button></div>
+          <div class="tt__grid" id="ttGrid"></div>
+          <p class="note" data-i18n="s.tt.note">과목마다 주 2회, 원하는 시간에. 남는 세 칸은 자습이나 후보생 훈련에 쓴다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 시설 -->
+  <section class="block" id="s-places">
+    <header class="block__head reveal">
+      <p class="eyebrow">05 <span>·</span> FACILITIES</p>
+      <h2 class="block__title"><span data-i18n="s.fac.t">주요 시설</span><small>THE CASTLE</small></h2>
+    </header>
+    <div class="places" id="facilities"></div>
+  </section>
+
+  <!-- 06 행사 -->
+  <section class="block" id="s-events">
+    <header class="block__head reveal">
+      <p class="eyebrow">06 <span>·</span> CALENDAR</p>
+      <h2 class="block__title"><span data-i18n="s.ev.t">연간 행사</span><small>THE YEAR</small></h2>
+    </header>
+    <ol class="events" id="events"></ol>
+  </section>
+
+  <!-- 07 지역 -->
+  <section class="block" id="s-regions">
+    <header class="block__head reveal">
+      <p class="eyebrow">07 <span>·</span> REGIONS</p>
+      <h2 class="block__title"><span data-i18n="s.reg.t">주요 지역</span><small>BEYOND THE WALLS</small></h2>
+    </header>
+    <div class="places places--3" id="regions"></div>
+  </section>
+
+  <div class="next reveal">
+    <p class="eyebrow">NEXT</p>
+    <button class="btn-main" type="button" data-go="sorting"><svg><use href="#i-wand"/></svg><span data-i18n="s.next">천리안 수정 앞에 서기</span></button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     III · 기숙사 배정
+     ════════════════════════════════════════════ -->
+<section class="view" id="v-sorting" data-view="sorting" aria-label="기숙사 배정" data-i18n-attr="aria-label:nav.sorting">
+  <header class="page-head">
+    <p class="eyebrow">THE SEEING CRYSTAL <span>·</span> SORTING CEREMONY</p>
+    <h1 class="page-head__title" data-i18n="so.title">기숙사 배정식</h1>
+    <p class="page-head__lead" data-i18n="so.lead">입학식에서 모든 신입생은 성향에 맞는 기숙사로 배정된다. 학생의 성격을 꿰뚫어 보는 '천리안 수정'과 문답을 나눈 뒤, 알맞은 기숙사에 배정받는다.</p>
+  </header>
+  <div class="sorter" id="sorter">
+    <div class="orb" id="orb">
+      <img class="orb__img" src="assets/bg/orb.jpg" alt="" aria-hidden="true">
+      <span class="orb__glow" aria-hidden="true"></span>
+      <span class="orb__swirl" aria-hidden="true"></span>
+      <img class="orb__crest" id="orbCrest" alt="" aria-hidden="true">
+      <p class="orb__voice" id="orbVoice" aria-live="polite"></p>
+    </div>
+    <div class="sorter__panel" id="sortPanel"></div>
+  </div>
+  <p class="sorter__music"><button class="btn-ghost play-btn" type="button" data-play="e-sorting"><svg><use href="#i-music"/></svg><span data-mtitle="e-sorting"></span></button></p>
+</section>
+
+<!-- ════════════════════════════════════════════
+     IV · 인물
+     ════════════════════════════════════════════ -->
+<section class="view" id="v-characters" data-view="characters" aria-label="인물" data-i18n-attr="aria-label:nav.characters">
+  <header class="page-head">
+    <p class="eyebrow">DRAMATIS PERSONAE</p>
+    <h1 class="page-head__title" data-i18n="ch.title">인물</h1>
+    <p class="page-head__lead" data-i18n="ch.lead">학교 지도부와 교수진, 세 기숙사의 학생들, 그리고 마녀 사냥꾼. 카드를 누르면 인물 기록이 열린다.</p>
+  </header>
+  <div class="ctabs" id="ctabs" role="tablist"></div>
+  <div class="cbanner" id="cbanner"></div>
+  <div class="toolbar">
+    <label class="search"><svg><use href="#i-search"/></svg><input id="qInput" type="search" placeholder="이름 · 역할 · 성격 검색" aria-label="인물 검색" data-i18n-attr="placeholder:ch.ph;aria-label:ch.ph"></label>
+    <button class="btn-icon" id="btnRandom" type="button" title="무작위 인물" aria-label="무작위 인물" data-i18n-attr="title:ch.random;aria-label:ch.random"><svg><use href="#i-dice"/></svg></button>
+  </div>
+  <div class="cards" id="cards"></div>
+  <p class="empty" id="cardsEmpty" hidden data-i18n="ch.empty">찾는 인물이 없습니다.</p>
+</section>
+
+<!-- ════════════════════════════════════════════
+     V · 관계도
+     ════════════════════════════════════════════ -->
+<section class="view" id="v-relations" data-view="relations" aria-label="관계도" data-i18n-attr="aria-label:nav.relations">
+  <header class="page-head">
+    <p class="eyebrow">RELATIONS</p>
+    <h1 class="page-head__title" data-i18n="rg.title">관계도</h1>
+    <p class="page-head__lead" data-i18n="rg.lead">노드를 누르면 그 인물의 관계가, 두 번 누르면 인물 기록이 열린다. ★ 표시는 이야기의 열쇠가 되는 관계다.</p>
+  </header>
+  <div class="rel">
+    <div class="rel__legend"><div id="relLegend"></div><button class="btn-ghost rel__reset" id="relReset" type="button" data-i18n="rg.reset">배치 초기화</button></div>
+    <div class="rel__stage" id="relStage">
+      <svg id="relSvg" aria-label="인물 관계 그래프" data-i18n-attr="aria-label:rg.aria"></svg>
+    </div>
+    <aside class="rel__panel" id="relPanel"></aside>
+  </div>
+  <section class="rsum" id="relSummary" aria-labelledby="rsTitle">
+    <header class="rsum__head">
+      <div>
+        <h2 class="rsum__title" id="rsTitle" data-i18n="rs.title">관계 총정리</h2>
+        <p class="rsum__lead" data-i18n="rs.lead">모든 관계를 한눈에. 이름을 누르면 인물 기록이, 줄을 누르면 위 그래프에서 그 관계가 강조된다.</p>
+      </div>
+      <div class="rsum__tools">
+        <label class="search rsum__search"><svg><use href="#i-search"/></svg><input id="rsInput" type="search" placeholder="이름 · 관계 검색" aria-label="관계 검색" data-i18n-attr="placeholder:rs.ph;aria-label:rs.ph"></label>
+        <div class="rsum__mode" role="group">
+          <button type="button" data-mode="group" class="is-on" data-i18n="rs.byGroup">묶음별</button>
+          <button type="button" data-mode="person" data-i18n="rs.byPerson">인물별</button>
+          <button type="button" data-mode="star" data-i18n="rs.byStar">★ 핵심</button>
+        </div>
+      </div>
+    </header>
+    <div class="rsum__body" id="rsBody"></div>
+  </section>
+</section>
+
+</main>
+
+<footer class="foot" id="foot">
+  <p><b>RAVENFORD</b> · <span data-i18n="intro.sub">— 당신의 신념은, 어느 쪽입니까. —</span></p>
+  <p><button type="button" id="replayIntro" data-i18n="foot.intro">인트로 다시 보기</button> · <span data-i18n="foot.search">Ctrl + K 검색</span></p>
+</footer>
+
+<!-- ═════════ 화면 전환 ═════════ -->
+<div class="veil" id="veil" aria-hidden="true">
+  <div class="veil__label"><span id="veilKicker">RAVENFORD</span><b id="veilTitle"></b></div>
+</div>
+
+<!-- ═════════ 인물 상세 ═════════ -->
+<div class="cmodal" id="cmodal" role="dialog" aria-modal="true" aria-labelledby="cmName" hidden>
+  <div class="cmodal__scrim" data-close></div>
+  <article class="cmodal__panel" id="cmPanel"></article>
+  <button class="cmodal__nav cmodal__nav--prev" id="cmPrev" type="button" aria-label="이전 인물" data-i18n-attr="aria-label:cm.prev"><svg><use href="#i-left"/></svg></button>
+  <button class="cmodal__nav cmodal__nav--next" id="cmNext" type="button" aria-label="다음 인물" data-i18n-attr="aria-label:cm.next"><svg><use href="#i-right"/></svg></button>
+</div>
+
+<!-- ═════════ 검색 팔레트 ═════════ -->
+<div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="인물 검색" data-i18n-attr="aria-label:hud.search" hidden>
+  <div class="palette__scrim" data-close></div>
+  <div class="palette__box">
+    <label class="palette__input"><svg><use href="#i-search"/></svg><input id="palInput" type="text" placeholder="인물 · 역할 · 기숙사 검색" autocomplete="off" data-i18n-attr="placeholder:pal.ph"><kbd>ESC</kbd></label>
+    <ul class="palette__list" id="palList" role="listbox"></ul>
+  </div>
+</div>
+
+<!-- ═════════ 음악: 하단 플레이어 ═════════ -->
+<div class="dock" id="dock" role="region" aria-label="음악 플레이어" data-i18n-attr="aria-label:mu.player">
+  <input class="mrange dock__seek" type="range" min="0" max="1000" value="0" step="1" data-m-seek aria-label="재생 위치" data-i18n-attr="aria-label:mu.seek">
+  <button class="dock__info" type="button" data-m="open" aria-label="플레이리스트 모드 열기" data-i18n-attr="aria-label:hud.music">
+    <span class="dock__art"><img data-m-cover src="assets/cover/main.jpg" alt=""><i class="eq" aria-hidden="true"><b></b><b></b><b></b></i></span>
+    <span class="dock__text"><b data-m-title>LAS - The Sixth Pioneer</b><small data-m-sub></small></span>
+  </button>
+  <div class="dock__ctrl">
+    <button class="mbtn mbtn--sm dock__hide-s" type="button" data-m="shuffle" aria-pressed="true" aria-label="셔플" title="셔플" data-i18n-attr="aria-label:mu.shuffle;title:mu.shuffle"><svg><use href="#i-shuffle"/></svg></button>
+    <button class="mbtn dock__hide-s" type="button" data-m="prev" aria-label="이전 곡" title="이전 곡" data-i18n-attr="aria-label:mu.prev;title:mu.prev"><svg><use href="#i-prev"/></svg></button>
+    <button class="mbtn mbtn--play" type="button" data-m="play" aria-label="재생" title="재생" data-i18n-attr="aria-label:mu.play;title:mu.play"><svg><use href="#i-play"/></svg></button>
+    <button class="mbtn" type="button" data-m="next" aria-label="다음 곡" title="다음 곡" data-i18n-attr="aria-label:mu.next;title:mu.next"><svg><use href="#i-next"/></svg></button>
+    <button class="mbtn mbtn--sm dock__hide-s" type="button" data-m="repeat" aria-label="반복" title="반복" data-i18n-attr="aria-label:mu.repeat;title:mu.repeat"><svg><use href="#i-repeat"/></svg></button>
+  </div>
+  <div class="dock__right">
+    <span class="dock__time"><span data-m-cur>0:00</span> / <span data-m-dur>0:00</span></span>
+    <div class="vol">
+      <button class="mbtn mbtn--sm" type="button" data-m="mute" aria-label="음소거" title="음소거" data-i18n-attr="aria-label:mu.mute;title:mu.mute"><svg><use href="#i-vol"/></svg></button>
+      <input class="mrange vol__bar" type="range" min="0" max="100" value="70" data-m-vol aria-label="볼륨" data-i18n-attr="aria-label:mu.vol">
+    </div>
+    <button class="mbtn" type="button" data-m="open" aria-label="플레이리스트 모드" title="플레이리스트 모드" data-i18n-attr="aria-label:hud.music;title:hud.music"><svg><use href="#i-list"/></svg></button>
+  </div>
+</div>
+
+<!-- ═════════ 음악: 플레이리스트 모드 ═════════ -->
+<div class="music" id="music" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden>
+  <div class="music__bg" id="mBg"></div>
+  <header class="music__bar">
+    <button class="mbtn" type="button" data-m="close" aria-label="사이트로 돌아가기" title="사이트로 돌아가기" data-i18n-attr="aria-label:mu.close;title:mu.close"><svg><use href="#i-down"/></svg></button>
+    <p class="music__brand"><b>RAVENFORD</b> <span>OST</span> · <span id="mCount"></span></p>
+    <span class="music__bar-sp"></span>
+  </header>
+  <div class="music__main">
+    <section class="music__now">
+      <div class="music__art"><img data-m-cover src="assets/cover/main.jpg" alt=""></div>
+      <div class="music__meta">
+        <p class="eyebrow" id="mGroup"></p>
+        <h2 class="music__title" id="mTitle" data-m-title></h2>
+        <p class="music__sub" data-m-sub></p>
+      </div>
+      <div class="music__seek">
+        <input class="mrange" type="range" min="0" max="1000" value="0" step="1" data-m-seek aria-label="재생 위치" data-i18n-attr="aria-label:mu.seek">
+        <div class="music__times"><span data-m-cur>0:00</span><span data-m-dur>0:00</span></div>
+      </div>
+      <div class="music__ctrl">
+        <button class="mbtn" type="button" data-m="shuffle" aria-pressed="true" aria-label="셔플" title="셔플" data-i18n-attr="aria-label:mu.shuffle;title:mu.shuffle"><svg><use href="#i-shuffle"/></svg></button>
+        <button class="mbtn mbtn--lg" type="button" data-m="prev" aria-label="이전 곡" data-i18n-attr="aria-label:mu.prev"><svg><use href="#i-prev"/></svg></button>
+        <button class="mbtn mbtn--play mbtn--xl" type="button" data-m="play" aria-label="재생" data-i18n-attr="aria-label:mu.play"><svg><use href="#i-play"/></svg></button>
+        <button class="mbtn mbtn--lg" type="button" data-m="next" aria-label="다음 곡" data-i18n-attr="aria-label:mu.next"><svg><use href="#i-next"/></svg></button>
+        <button class="mbtn" type="button" data-m="repeat" aria-label="반복" title="반복" data-i18n-attr="aria-label:mu.repeat;title:mu.repeat"><svg><use href="#i-repeat"/></svg></button>
+      </div>
+      <div class="vol vol--wide">
+        <button class="mbtn mbtn--sm" type="button" data-m="mute" aria-label="음소거" data-i18n-attr="aria-label:mu.mute"><svg><use href="#i-vol"/></svg></button>
+        <input class="mrange vol__bar" type="range" min="0" max="100" value="70" data-m-vol aria-label="볼륨" data-i18n-attr="aria-label:mu.vol">
+      </div>
+      <button class="btn-ghost music__char" id="mChar" type="button" hidden data-i18n="mu.charRec">인물 기록 보기</button>
+    </section>
+    <section class="music__list" aria-label="재생 목록" data-i18n-attr="aria-label:mu.queue">
+      <div class="music__tools">
+        <label class="search"><svg><use href="#i-search"/></svg><input id="mSearch" type="search" placeholder="곡 · 인물 검색" aria-label="곡 검색" data-i18n-attr="placeholder:mu.ph;aria-label:mu.ph"></label>
+        <button class="btn-ghost music__sel" id="mSelBtn" type="button" data-i18n="mu.select">선택</button>
+        <button class="btn-main music__shuffle-all" type="button" data-m="shuffleAll"><svg><use href="#i-shuffle"/></svg><span data-i18n="mu.shuffleAll">셔플 재생</span></button>
+      </div>
+      <div class="music__tabs" id="mTabs" role="tablist"></div>
+      <div class="music__lh" id="mListHead" hidden></div>
+      <ol class="music__tracks" id="mTracks"></ol>
+    </section>
+  </div>
+  <!-- 선택 모드 하단 바 -->
+  <div class="music__selbar" id="mSelBar" hidden>
+    <span id="mSelCount"></span>
+    <button class="btn-ghost" id="mSelCancel" type="button" data-i18n="mu.cancel">취소</button>
+    <button class="btn-main" id="mSelAdd" type="button" data-i18n="mu.addTo">플레이리스트에 담기</button>
+  </div>
+  <!-- 플레이리스트에 담기 -->
+  <div class="msheet" id="mSheet" hidden>
+    <div class="msheet__scrim" data-msheet-close></div>
+    <div class="msheet__box" role="dialog" aria-modal="true" aria-labelledby="mSheetTitle">
+      <header><h3 id="mSheetTitle" data-i18n="mu.addTo">플레이리스트에 담기</h3><button class="mbtn" type="button" data-msheet-close aria-label="닫기" data-i18n-attr="aria-label:cm.close"><svg><use href="#i-close"/></svg></button></header>
+      <ul class="msheet__list" id="mSheetList"></ul>
+      <form class="msheet__form" id="mSheetForm" autocomplete="off">
+        <input id="mSheetName" type="text" maxlength="30" aria-label="플레이리스트 이름" data-i18n-attr="aria-label:mu.newPh">
+        <button class="btn-main" type="submit" data-i18n="mu.create">새로 만들기</button>
+      </form>
+    </div>
+  </div>
+</div>
+<audio id="audio" preload="none"></audio>
+
+<!-- ═════════ 편의 기능: 읽기 진행 · 목차 · 맨 위로 ═════════ -->
+<div class="progress" id="progress" aria-hidden="true"><i></i></div>
+<nav class="toc" id="toc" aria-label="목차" data-i18n-attr="aria-label:toc.label"></nav>
+<button class="totop" id="toTop" type="button" aria-label="맨 위로" title="맨 위로" data-i18n-attr="aria-label:ui.top;title:ui.top"><svg><use href="#i-left"/></svg></button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/data.js?v=20261017-1700"></script>
+<script src="js/main.js?v=20261017-1700"></script>
+</body>
+</html>
