@@ -287,7 +287,7 @@ body.is-playing .play-btn.is-cur svg { animation: bob 1s ease-in-out infinite al
 .lore h3 { margin: .7rem 0 .8rem; font: 700 1.35rem/1.35 var(--f-serif); }
 .lore p { margin: 0; font-size: .98rem; line-height: 1.9; color: var(--text-2); }
 
-.pioneers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin: 3rem 0; }
+.pioneers { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin: 3rem 0; }
 .pio { --hc: 160, 122, 52; position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 22px 10px 18px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); }
 .pio__no { font: 500 1rem var(--f-cg); color: var(--text-3); margin-bottom: 10px; }
 .pio__face { width: 96px; height: 96px; display: block; flex: none; margin-bottom: 14px; border-radius: 50%; background: radial-gradient(circle, rgba(var(--hc), .22), transparent 70%); box-shadow: 0 0 0 1px rgba(var(--hc), .6); padding: 8px; }
@@ -303,6 +303,13 @@ body.is-playing .play-btn.is-cur svg { animation: bob 1s ease-in-out infinite al
 .pio.is-you .pio__face { background: radial-gradient(circle, rgba(var(--gold-rgb), .25), transparent 70%); box-shadow: 0 0 0 1px var(--gold); animation: youGlow 3s ease-in-out infinite; }
 @keyframes youGlow { 50% { box-shadow: 0 0 0 1px var(--gold), 0 0 34px rgba(var(--gold-rgb), .55); } }
 .pio__q { display: grid; place-items: center; width: 100%; height: 100%; font: 500 3rem/1 var(--f-cg); color: var(--gold); }
+/* 다섯 번째: 지워진 기록 — 점선 테두리, 빈 원에 그어진 사선 */
+.pio.is-lost { border-style: dashed; background: transparent; }
+.pio.is-lost .pio__face { background: none; box-shadow: none; border: 1px dashed rgba(255, 255, 255, .22); }
+.pio__q--lost { position: relative; }
+.pio__q--lost::before { content: ''; position: absolute; left: 18%; right: 18%; top: 50%; height: 1px; background: rgba(255, 255, 255, .3); transform: rotate(-35deg); }
+.pio.is-lost .pio__no, .pio.is-lost .pio__ord, .pio.is-lost .pio__note { color: var(--text-3); opacity: .7; }
+.pio.is-lost .pio__name { color: var(--text-3); font-weight: 500; letter-spacing: .08em; }
 .henry { position: relative; margin: 0 0 3rem; max-width: 820px; padding: 6px 0 6px 28px; border-left: 2px solid var(--gold); }
 .henry p { margin: 0; font: 700 clamp(1.35rem, 2.8vw, 2rem)/1.5 var(--f-serif); color: var(--text); letter-spacing: -.01em; }
 .henry cite { display: block; margin-top: .8rem; font-style: normal; font-size: .9rem; color: var(--text-3); }
@@ -1373,7 +1380,6 @@ body.is-revealed .lumos { background: rgba(5, 6, 9, .2); }
   .block__text { font-size: 1rem; }
   .page-head__title { font-size: clamp(2.2rem, 10vw, 2.8rem); }
   .pioneers { grid-template-columns: repeat(2, 1fr); }
-  .pio.is-you { grid-column: 1 / -1; }
   .pio__face { width: 84px; height: 84px; }
   .places, .events { grid-template-columns: 1fr 1fr; }
   .places { grid-template-columns: 1fr; }

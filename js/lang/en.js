@@ -2,7 +2,7 @@
 window.RAVENFORD_L10N = {
   code: 'en',
   ui: {
-    'meta.desc': `Wizards have always existed, hidden from ordinary people. Now that the Witch Hunters have begun to raid again, the fifth Pioneer enrolls at Ravenford.`,
+    'meta.desc': `Wizards have always existed, hidden from ordinary people. Now that the Witch Hunters have begun to raid again, the sixth Pioneer enrolls at Ravenford.`,
     'site.title': `RAVENFORD — School of Magic`, 'q': `“{t}”`,
 
     /* 인트로 */
@@ -31,11 +31,11 @@ window.RAVENFORD_L10N = {
     'w.pio.d1': `Long ago, Ravenford was founded by three legendary wizards: <strong>Kyle Brevalin</strong>, <strong>Elizabeth Clamis</strong>, and <strong>Blake Curringlindt</strong>. None of them inherited magic — they were BliP-born and awakened on their own, the so-called <strong>"Pioneers."</strong> The fourth known Pioneer is none other than <strong>Jane Calvins</strong>, leader of the Witch Hunters.`,
     'w.pio.quote': `“Every Pioneer is led by a powerful conviction.”`,
     'w.pio.cite': `— Henry Paddingstall, former headmaster`,
-    'w.pio.d2': `Pioneers are extremely rare; for decades after Jane, no new Pioneer appeared. But this year, a freshman who awakened magic on their own in the BliP world enrolled at Ravenford. That is <strong>the fifth Pioneer — you</strong>. The news spread through the whole school the moment you arrived, and students and professors alike look at you in very different ways.`,
-    'w.pio.d3': `The three founders built Ravenford; Jane led the Witch Hunters. No one yet knows what conviction the fifth Pioneer will come to hold.`,
+    'w.pio.d2': `Pioneers are extremely rare; for decades after Jane, no new Pioneer appeared. But this year, a freshman who awakened magic on their own in the BliP world enrolled at Ravenford. That is <strong>the sixth Pioneer — you</strong>. The news spread through the whole school the moment you arrived, and students and professors alike look at you in very different ways.`,
+    'w.pio.d3': `The three founders built Ravenford; Jane led the Witch Hunters. No one yet knows what conviction the sixth Pioneer will come to hold.`,
     'pio.kyle': `Kyle Brevalin`, 'pio.elizabeth': `Elizabeth Clamis`, 'pio.blake': `Blake Curringlindt`, 'pio.you': `You`,
     'pio.founder': `Founder · {house}`, 'pio.jane': `Leader of the Witch Hunters`, 'pio.youNote': `This year's freshman`,
-    'pio.o1': `The First`, 'pio.o2': `The Second`, 'pio.o3': `The Third`, 'pio.o4': `The Fourth`, 'pio.o5': `The Fifth`,
+    'pio.o1': `The First`, 'pio.o2': `The Second`, 'pio.o3': `The Third`, 'pio.o4': `The Fourth`, 'pio.o5': `The Fifth`, 'pio.o6': `The Sixth`, 'pio.lost': `No record`, 'pio.lostNote': `No name, no deeds remain`,
     'w.hist.t': `The Last Twenty Years`, 'tl.now': `NOW`,
     'w.magic.t': `The Art of Magic`,
     'w.cmd.t': `The Five Commandments of Magic`,
@@ -187,7 +187,7 @@ window.RAVENFORD_L10N = {
     'lt.p4w': `Your wand ({wand}) is waiting for you at Aiden Wilde's wand shop in Ravenville.`,
     'lt.sign1': `Headmaster Kaiden Bolt`, 'lt.sign2': `Deputy Headmistress Isabella Blackwood`, 'lt.save': `Save student ID`, 'lt.reseal': `Seal it again`,
     'id.no': `Student No.`, 'id.year': `Year`, 'id.year1': `First year`, 'id.house': `House`, 'id.wand': `Wand`, 'id.issued': `Issued`, 'id.name': `Name`,
-    'lm.hint': `Shine your wand light here`, 'lm.secret': `Only two now know where this archive lies.`,
+    'lm.hint': `Shine your wand light here`, 'lm.secret': `Only two are left to keep this archive's secret.`,
     'so.letter': `Collect your acceptance letter`
   },
 
@@ -369,8 +369,8 @@ window.RAVENFORD_L10N = {
       `Former commander and subordinate. The insignia Morgan tore off was the one Kaiden pinned on him.`,
       `Hannah was in the unit that brought down Ember's parents. Neither of them knows.`,
       `Even transformation can't change a wand. The only person who can recognize the spy.`,
-      `The last two people who know of the Founders' Stacks (Kaiden · Aiden). Jane's targets.`,
-      `The last two people who know of the Founders' Stacks (Kaiden · Aiden). Jane's targets.`,
+      `The two who keep the secret of the Founders' Stacks (Kaiden · Aiden). Jane's targets.`,
+      `The two who keep the secret of the Founders' Stacks (Kaiden · Aiden). Jane's targets.`,
       `One lost family to the Hunters, the other to wizards. Mirrors of each other.`,
       `Machina Ruptus versus the suppression device. Rival engineers who know each other only by their work.`,
       `The one comrade Morgan let live on the day he betrayed them was Theo's father.`,
@@ -456,7 +456,7 @@ window.RAVENFORD_L10N = {
     places: {
       hall: { name: `Hall of the Founders`, tags: [`Meals`, `Sorting · Entrance`, `School events`], d: `The great hall at the heart of Ravenford castle. The whole school gathers here for meals, and every school event, large or small, is held here. Each year on March 3, it is where new students stand before the Seeing Crystal at the Sorting and Entrance Ceremony.` },
       archive: { name: `Ravenford Archive`, tags: [`Library`, `Self-study`, `Ancient books`], d: `Ravenford's library. It holds everything from class texts to the oldest records of the wizarding world, making it the favorite spot for self-study in free periods. Spells can be learned from ancient books as well as in class, so students hunting for new spells are always coming and going.` },
-      stacks: { name: `The Founders' Stacks`, tags: [`Secret`, `Forbidden knowledge`], d: `A hidden room where forbidden magical knowledge is kept. Very few know it exists, and only two know where it is: Headmaster Kaiden Bolt and the retired Aiden Wilde. That is exactly why Jane Calvins, leader of the Witch Hunters, is after them.` },
+      stacks: { name: `The Founders' Stacks`, tags: [`Secret`, `Forbidden knowledge`], d: `A hidden room where forbidden magical knowledge is kept. Very few know it exists; on the school's side, Headmaster Kaiden Bolt and the retired Aiden Wilde keep its secret. That is exactly why Jane Calvins, leader of the Witch Hunters, is after them.` },
       commons: { name: `Common Rooms and Dormitories`, tags: [`Dorm life`, `Curfew 10 PM`], d: `Brevalin, Clamis, Curringlindt. Each of the three houses has its own common room and dormitory. Students live here for three years and must be back in their own house before the 10 PM curfew. In each house, a third-year Head of House looks after student life.` },
       passage: { name: `The Passage Gate`, tags: [`Portal`, `Guardian watch`, `Leave permit`], d: `A hidden portal leading to the BliP world. Since the school went on a war footing, Guardians have watched it at all times. To pass through to the BliP world, a student needs a leave permit issued by Silas Thorn, professor of discipline and security.` },
       forest: { name: `The Veiled Forest`, tags: [`Off-limits`, `Black river`, `Magical creatures`], d: `Off-limits to students. A mountain where a black river flows, full of magical creatures and danger. Even so, rumors never stop among the students about lights seen deep in the woods at night.` },

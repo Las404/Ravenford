@@ -39,7 +39,8 @@
     'stat.houses': '기숙사', 'stat.chars': '기록된 인물', 'stat.rels': '관계', 'stat.tracks': '수록곡',
     'pio.kyle': '카일 브레벌린', 'pio.elizabeth': '엘리자베스 클라미스', 'pio.blake': '블레이크 커링린트', 'pio.you': '당신',
     'pio.founder': '창립자 · {house}', 'pio.jane': '마녀 사냥꾼의 수장', 'pio.youNote': '올해의 신입생',
-    'pio.o1': '첫 번째', 'pio.o2': '두 번째', 'pio.o3': '세 번째', 'pio.o4': '네 번째', 'pio.o5': '다섯 번째',
+    'pio.o1': '첫 번째', 'pio.o2': '두 번째', 'pio.o3': '세 번째', 'pio.o4': '네 번째', 'pio.o5': '다섯 번째', 'pio.o6': '여섯 번째',
+    'pio.lost': '기록 없음', 'pio.lostNote': '이름도 행적도 남아 있지 않다',
     'cmd.oppose': '{house} 반대', 'cmd.clash': '{house}와 충돌',
     'spell.opt': '속성', 'tl.now': 'NOW',
     'house.animal': '상징', 'house.color': '기숙사 색', 'house.motto': '이념', 'house.clause': '비상 조항에 대해',
@@ -111,7 +112,7 @@
     'lt.p4w': '귀하의 지팡이({wand})는 레이븐빌, 에이든 와일드의 지팡이 가게에 맡겨 두었습니다.',
     'lt.sign1': '교장 카이든 볼트', 'lt.sign2': '교감 이사벨라 블랙우드', 'lt.save': '학생증 저장', 'lt.reseal': '다시 봉하기',
     'id.no': '학번', 'id.year': '학년', 'id.year1': '1학년', 'id.house': '기숙사', 'id.wand': '지팡이', 'id.issued': '발급일', 'id.name': '이름',
-    'lm.hint': '지팡이 불빛을 비춰 보세요', 'lm.secret': '이 서고의 자리를 아는 자는, 이제 둘뿐이다.',
+    'lm.hint': '지팡이 불빛을 비춰 보세요', 'lm.secret': '이 서고의 비밀을 지키는 자는, 이제 둘뿐이다.',
     'so.letter': '입학 통지서 받으러 가기'
   };
   const UI = Object.assign({}, KO, (LX && LX.ui) || {});
@@ -509,16 +510,18 @@
       { k: 'pio.elizabeth', h: 'clamis', note: T('pio.founder', { house: H.clamis.name }) },
       { k: 'pio.blake', h: 'curringlindt', note: T('pio.founder', { house: H.curringlindt.name }) },
       { k: 'jane', note: T('pio.jane') },
+      { k: 'lost', note: T('pio.lostNote') },   // 다섯 번째: 아무 기록도 남아 있지 않다
       { k: 'you', note: T('pio.youNote') }
     ];
-    const ROMAN = ['I', 'II', 'III', 'IV', 'V'];
+    const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'];
     $('#pioneers').innerHTML = P.map((p, i) => {
       let face, name;
       if (p.h) { face = `<img src="${crest(p.h)}" alt="">`; name = T(p.k); }
       else if (p.k === 'jane') { face = `<img class="is-photo" src="${thumb('jane')}" alt="">`; name = byId.jane.name; }
+      else if (p.k === 'lost') { face = '<b class="pio__q pio__q--lost" aria-hidden="true"></b>'; name = T('pio.lost'); }
       else { face = '<b class="pio__q">?</b>'; name = T('pio.you'); }
       const tag = p.k === 'jane' ? 'button' : 'div';
-      return `<${tag} class="pio${p.k === 'you' ? ' is-you' : ''}${p.k === 'jane' ? ' is-jane' : ''}" ${p.k === 'jane' ? 'type="button" data-char="jane"' : ''} style="--d:${i}${p.h ? `;--hc:${H[p.h].rgb}` : ''}">
+      return `<${tag} class="pio${p.k === 'you' ? ' is-you' : ''}${p.k === 'jane' ? ' is-jane' : ''}${p.k === 'lost' ? ' is-lost' : ''}" ${p.k === 'jane' ? 'type="button" data-char="jane"' : ''} style="--d:${i}${p.h ? `;--hc:${H[p.h].rgb}` : ''}">
         <span class="pio__no">${ROMAN[i]}</span>
         <span class="pio__face">${face}</span>
         <span class="pio__ord">${T('pio.o' + (i + 1))}</span>
